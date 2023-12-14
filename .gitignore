@@ -30,3 +30,7 @@ Temporary Items
 *.tmp
 *.swp
 *.swo
+
+#npm
+node_modules/
+bootstrap-5.3.2/
