@@ -3,7 +3,35 @@
 @import 'footer';
 @import 'main';
 
-
-body {
-    background: #000;
+a {
+    text-decoration: none;
+    color: grey;
 }
+
+.nav-link {
+    color: grey;
+}
+
+#corpo {
+    color: white;
+}
+
+#player{
+    i {
+        font-size: 1.5rem;
+        color: white;
+    }
+    #playerCard {
+        background-color: transparent;
+    }
+}
+
+body::-webkit-scrollbar {
+    display: none;
+  }
+  
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
