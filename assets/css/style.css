@@ -11855,6 +11855,32 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+a {
+  text-decoration: none;
+  color: grey;
+}
+
+.nav-link {
+  color: grey;
+}
+
+#corpo {
+  color: white;
+}
+
+#player i {
+  font-size: 1.5rem;
+  color: white;
+}
+#player #playerCard {
+  background-color: transparent;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 body {
-  background: #000;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }/*# sourceMappingURL=style.css.map */
