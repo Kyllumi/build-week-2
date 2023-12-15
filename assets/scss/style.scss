@@ -16,11 +16,12 @@ a {
     color: white;
 }
 
-#player{
+#player {
     i {
         font-size: 1.5rem;
         color: white;
     }
+
     #playerCard {
         background-color: transparent;
     }
@@ -28,14 +29,26 @@ a {
 
 body::-webkit-scrollbar {
     display: none;
-  }
-  
-  body {
+}
+
+body {
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
+}
+
+.rounded-circle {
+    width: 40px;
+}
+
 
 .txtside {
     color: #B1AFA9;
     font-family: 'Circular' sans-serif;
 }
+
+.sidebarR p {
+    font-size: 12px;
+    line-height: 5px;
+    color: rgb(207, 206, 206);
+}
+
