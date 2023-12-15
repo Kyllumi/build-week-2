@@ -11883,4 +11883,9 @@ body::-webkit-scrollbar {
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.txtside {
+  color: #B1AFA9;
+  font-family: "Circular" sans-serif;
 }/*# sourceMappingURL=style.css.map */
