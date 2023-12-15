@@ -11855,6 +11855,14 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+#buonaseraCards .row .card {
+  background-color: rgb(43, 43, 43);
+  color: white;
+}
+#buonaseraCards .row .card h5, #buonaseraCards .row .card .h5 {
+  font-size: 0.9em;
+}
+
 a {
   text-decoration: none;
   color: grey;
