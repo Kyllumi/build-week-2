@@ -1,54 +1,52 @@
-@import 'override-bootstrap';
-@import 'header';
-@import 'footer';
-@import 'main';
+@import "override-bootstrap";
+@import "header";
+@import "footer";
+@import "main";
 
 a {
-    text-decoration: none;
-    color: grey;
+  text-decoration: none;
+  color: grey;
 }
 
 .nav-link {
-    color: grey;
+  color: grey;
 }
 
 #corpo {
-    color: white;
+  color: white;
 }
 
 #player {
-    i {
-        font-size: 1.5rem;
-        color: white;
-    }
+  i {
+    font-size: 1.5rem;
+    color: white;
+  }
 
-    #playerCard {
-        background-color: transparent;
-    }
+  #playerCard {
+    background-color: transparent;
+  }
 }
 
 body::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 body {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .rounded-circle {
-    width: 40px;
+  width: 40px;
 }
 
-
 .txtside {
-    color: #B1AFA9;
-    font-family: 'Circular' sans-serif;
+  color: #b1afa9;
+  font-family: "Circular" sans-serif;
 }
 
 .sidebarR p {
-    font-size: 12px;
-    line-height: 5px;
-    color: rgb(207, 206, 206);
+  font-size: 12px;
+  line-height: 5px;
+  color: rgb(207, 206, 206);
 }
-
