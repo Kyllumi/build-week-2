@@ -30,12 +30,34 @@ body {
 
 #player {
   i {
-    font-size: 1.5rem;
-    color: white;
+    font-size: 1rem;
+    color: #b1afa9;
+    margin: 0 0.3rem;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  .bi-skip-start-fill,
+  .bi-play-circle-fill,
+  .bi-skip-end-fill {
+    font-size: 2rem;
   }
 
   #playerCard {
     background-color: transparent;
+    width: 16rem;
+
+    p,
+    h6 {
+      font-size: 80%;
+      margin: 0;
+    }
+
+    p {
+      color: #b1afa9;
+    }
   }
 }
 
@@ -57,7 +79,7 @@ body {
 }
 
 #activity {
-margin-left: 0
+  margin-left: 0
 }
 
 .sidebarR p {
@@ -76,6 +98,7 @@ margin-left: 0
   height: 60vh;
   overflow-y: scroll;
   overflow-x: hidden;
+  padding-bottom: 10rem;
 }
 
 #corpo {
@@ -83,14 +106,30 @@ margin-left: 0
   height: 100vh;
   width: 100%;
   overflow-x: hidden;
+  padding-bottom: 10rem;
+
   .row,
   .col {
     padding: 0;
     margin: 0.2rem;
   }
+
   &::-webkit-scrollbar-track {
     background: #212529;
   }
+}
+
+#playerCard,
+#volume {
+  width: 20%;
+}
+
+#playerIcons {
+  width: 60%;
+}
+
+#player {
+  height: 5rem;
 }
 
 ::-webkit-scrollbar {
@@ -113,4 +152,22 @@ margin-left: 0
 #navbarL {
   position: sticky;
   top: 0;
+}
+
+input[type="range"] {
+  background-color: blue;
+  color: #5e5e5e;
+  width: 32rem;
+  height: 0.3rem;
+  margin: 0 0.3rem;
+}
+
+.bi-bookmark-fill {
+  font-size: 0.6rem;
+  padding: 0.3rem 0.4rem;
+}
+
+.d-inline.pe-2 {
+  width: 1.5rem;
+  height: 1.5rem;
 }

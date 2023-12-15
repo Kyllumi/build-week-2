@@ -13,7 +13,7 @@
 
 <body class="bg-dark">
     <div class="container-fluid">
-        <div class="row ">
+        <div id="corpoSpotify" class="row">
             <!-- colonna di sinistra -->
             <div id="navbarL" class="col-3 bg-black">
                 <div id="sidebarL" class="bg-black">
@@ -55,15 +55,14 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link txtside fs-6 fw-bold pt-0" href="#">
-                                        <div class="d-inline pe-2"><img src="assets/imgs/icons/heart.png" width="23px"
+                                        <div class="d-inline pe-2"><img src="assets/imgs/main/liked.png" width="23px"
                                                 alt=""></div>
                                         Brani che ti piacciono
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link txtside fs-6 fw-bold pt-0 mb-2" href="#">
-                                        <div class="d-inline pe-2"> <img src="assets/imgs/icons/flag.png" width="23px"
-                                                alt=""></div>
+                                        <div class="d-inline pe-2"> <i class="bi bi-bookmark-fill bg-success"></i></div>
                                         I tuoi episodi
                                     </a>
                                 </li>
@@ -75,9 +74,12 @@
                 <div class="row">
                     <div id="playlistCol" class="col d-flex flex-column">
                         <!-- qui si autocpmpleto con js  -->
+                        <div class="divider"></div>
 
                     </div>
+                    
                 </div>
+
             </div>
 
             <!-- colonna centrale -->
@@ -138,7 +140,8 @@
                                     </div>
                                     <div class="col-md-8 ">
                                         <div class="card-body">
-                                            <h5 class="card-title">MauRizi0 Konstanzo Mediaset Compilation DIABOLIKA remiX</h5>
+                                            <h5 class="card-title">MauRizi0 Konstanzo Mediaset Compilation DIABOLIKA
+                                                remiX</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -148,12 +151,12 @@
                             <div class="card mb-3 border-0">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="assets/imgs/main/wh.png" class="img-fluid rounded-start"
-                                            alt="...">
+                                        <img src="assets/imgs/main/wh.png" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">memando con epic0de - come h4k3rar3 la white house</h5>
+                                            <h5 class="card-title">memando con epic0de - come h4k3rar3 la white house
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -163,12 +166,12 @@
                             <div class="card mb-3 border-0">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="assets/imgs/main/40.png" class="img-fluid rounded-start"
-                                            alt="...">
+                                        <img src="assets/imgs/main/40.png" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">Andiamo a <del>comandare</del> fleXare a casa di Gianluca 40</h5>
+                                            <h5 class="card-title">Andiamo a <del>comandare</del> fleXare a casa di
+                                                Gianluca 40</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -180,8 +183,7 @@
                             <div class="card mb-3 border-0">
                                 <div class="row g-0">
                                     <div class="col-md-4">
-                                        <img src="assets/imgs/main/liked.png" class="img-fluid rounded-start"
-                                            alt="...">
+                                        <img src="assets/imgs/main/liked.png" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
@@ -200,7 +202,8 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">Buongiornissimo caffè dalla vostra amica preferita 😝</h5>
+                                            <h5 class="card-title">Buongiornissimo caffè dalla vostra amica preferita 😝
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -215,7 +218,8 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title">Tribal Acid H0use remix potente attenti alla cassa</h5>
+                                            <h5 class="card-title">Tribal Acid H0use remix potente attenti alla cassa
+                                            </h5>
                                         </div>
                                     </div>
                                 </div>
@@ -275,6 +279,8 @@
                         </div> -->
                     </div>
                 </div>
+                <div class="divider"></div>
+
             </div>
 
             <!-- colonna di destra -->
@@ -325,58 +331,59 @@
                         <p>2 ore</p>
                     </div>
                 </div>
+                <div class="divider"></div>
+
             </div>
+
         </div>
 
-        <div id="player" class="container-fluid bg-dark fixed-bottom z-3">
-            <div class="master_play text-white d-flex justify-content-between align-items-center">
-                <div id="playerCard" class="card my-3 text-white" style="min-width: 0px;">
-                    <div class="row d-flex align-items-center">
-                        <div class="col-3 p-1">
-                            <img src="assets/imgs/main/image-10.jpg" class="img-fluid" alt="...">
-                        </div>
-                        <div class="col-9">
-                            <div class="card-body p-1 d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6>Titolo canzone</h6>
-                                    <p class="card-text">This is a wider carde bit longer.</p>
-                                </div>
-                                <i class="bi bi-heart fs-6"></i>
+        <div id="player"
+            class="text-white d-flex justify-content-between align-items-center container-fluid bg-dark fixed-bottom z-3">
+            <div id="playerCard" class="card my-3 text-white border-0 ms-2">
+                <div class="row d-flex align-items-center">
+                    <div class="col-3 p-1">
+                        <img src="assets/imgs/main/image-10.jpg" class="img-fluid rounded" alt="img canzone">
+                    </div>
+                    <div class="col-9">
+                        <div class="card-body p-1 d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6>Titolo canzone</h6>
+                                <p class="card-text">This is a wider carde bit longer.</p>
                             </div>
+                            <i class="bi bi-heart fs-6 ms-3"></i>
                         </div>
                     </div>
-                </div>
-
-                <div class="text-center w-100">
-                    <div class="icon">
-                        <i class="bi bi-shuffle"></i>
-                        <i class="bi bi-skip-start-fill"></i>
-                        <i class="bi bi-play-circle-fill"></i>
-                        <i class="bi bi-skip-end-fill"></i>
-                        <i class="bi bi-repeat"></i>
-                    </div>
-
-                    <div class="d-flex justify-content-center align-items-content">
-                        <span id="currentStart">0:00</span>
-                        <div class="bar">
-                            <input type="range" id="seek" min="0" value="0" max="100" class="px-5 w-100">
-                            <div class="bar2" id="bar2"></div>
-                            <div class="dot"></div>
-                        </div>
-                        <span id="currentEnd">0:00</span>
-                    </div>
-                </div>
-
-                <div class="vol d-flex align-items-center">
-                    <i class="bi bi-view-list"></i>
-                    <i class="bi bi-speaker"></i>
-                    <i class="bi bi-volume-up"></i>
-                    <input type="range" id="vol" min="0" value="30" max="100">
-                    <div class="vol_bar"></div>
-                    <div class="dot" id="vol_dot"></div>
                 </div>
             </div>
+
+            <div id="playerIcons" class="text-center">
+                <div class="icon d-flex justify-content-center align-items-center">
+                    <i class="bi bi-shuffle"></i>
+                    <i class="bi bi-skip-start-fill"></i>
+                    <i class="bi bi-play-circle-fill"></i>
+                    <i class="bi bi-skip-end-fill"></i>
+                    <i class="bi bi-repeat"></i>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center">
+                    <span id="currentStart">0:00</span>
+                    <input type="range" value="40" min="0" max="100" step="1" class="statusBar slider-progress">
+                    <span id="currentEnd">0:00</span>
+                </div>
+            </div>
+
+            <div id="volume" class="vol d-flex align-items-center">
+                <i class="bi bi-view-list"></i>
+                <i class="bi bi-speaker"></i>
+                <i class="bi bi-volume-up"></i>
+                <input type="range" id="vol" min="0" value="30" max="100">
+                <div class="vol_bar"></div>
+                <div class="dot" id="vol_dot"></div>
+                <i class="bi bi-arrows-angle-expand"></i>
+            </div>
         </div>
+
+
         <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
