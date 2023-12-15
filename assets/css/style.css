@@ -11885,6 +11885,11 @@ body {
   scrollbar-width: none;
 }
 
+
+.txtside {
+  color: #B1AFA9;
+  font-family: "Circular" sans-serif;
+}
 .rounded-circle {
   width: 40px;
 }
@@ -11893,4 +11898,5 @@ body {
   font-size: 12px;
   line-height: 5px;
   color: rgb(207, 206, 206);
+
 }/*# sourceMappingURL=style.css.map */
