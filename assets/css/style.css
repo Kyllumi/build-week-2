@@ -11883,4 +11883,14 @@ body::-webkit-scrollbar {
 body {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.rounded-circle {
+  width: 40px;
+}
+
+.sidebarR p {
+  font-size: 12px;
+  line-height: 5px;
+  color: rgb(207, 206, 206);
 }/*# sourceMappingURL=style.css.map */
