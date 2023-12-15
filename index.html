@@ -89,9 +89,11 @@
                         <i class="bi bi-chevron-right"></i>
                     </div>
 
-                    <div class="col text-end">
-                        <button class="btn btn-secondary p-0 px-2 rounded-5" type="button">Silvia Galaxy <i
-                                class="bi bi-plus"></i></button>
+                    <div id="nomeUtente" class="col text-end">
+                        <button class="btn btn-secondary p-0 px-2 rounded-5" type="button">
+                            Pamela Nerattini
+                            <i class="bi bi-plus"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -124,8 +126,8 @@
                 </div>
 
                 <!-- Playlists -->
-                <h2>Buonasera</h2>
                 <div id="buonaseraCards" class="row d-flex justify-content-center ">
+                    <h2>Buonasera</h2>
                     <div class="row">
                         <div class="col-4">
                             <div class="card mb-3 border-0">
@@ -225,19 +227,19 @@
                 <div class="row">
                     <div class="col d-flex justify-content-between mt-3">
                         <h3>Altro di ciò che ti piace</h3>
-                        <a href="">VISUALIZZA TUTTO</a>
+                        <a id="visualizzaTuttoPiccole" href="#">VISUALIZZA TUTTO</a>
                     </div>
                 </div>
-
-                <div class="row d-flex justify-content-center">
+                
+                <!-- CARD DINAMICHE -->
+                <div id="cardDinamiche" class="row d-flex justify-content-center">
                     <div class="row">
-                        <div class="col">
+                        <!-- <div class="col">
                             <div class="card">
-                                <img src="assets/imgs/main/image-10.jpg" class="card-img-top" alt="...">
+                                <img src="assets/imgs/main/image-10.jpg" class="card-img-top p-4" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural
-                                        lead-in to additional content. This content is a little bit longer.</p>
+                                    <h5 class="card-title">NOME ALBUM</h5>
+                                    <p class="card-text">GENERI MUSICALI</p>
                                 </div>
                             </div>
                         </div>
@@ -270,25 +272,26 @@
                                         lead-in to additional content. This content is a little bit longer.</p>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
 
             <!-- colonna di destra -->
-            <div id="activity" class="col-2 bg-black d-block">
+            <div id="activity" class="col-2 bg-black d-block d-none">
                 <div class="d-flex justify-content-between align-items-baseline mt-3">
                     <h5 class="text-white">Attività amici</h5>
                     <div>
-                        <a href="#"><i class="bi bi-person-plus mx-2 fs-5"></i></a>
-                        <a href="#"><i class="bi bi-x-lg fs-5"></i></a>
+                        <a href="#" class="bi bi-person-plus text-white mx-2 fs-5" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="left" data-bs-content="Hai già troppi amici su Linkedin">
+                        </a>
+                        <a id="croceX" href="#"><i class="bi bi-x-lg fs-5"></i></a>
                     </div>
                 </div>
                 <div class="d-flex justify-content-between align-items-start sidebarR mt-5">
                     <img src="https://yt3.googleusercontent.com/uSEZEQN3bGuWCRqG1UT-DubHeLC4YNvy2vZY207f_EoBE0ebKZ4CWhvm1LV_emaLIb_Wm9aQ=s900-c-k-c0x00ffffff-no-rj"
                         class="rounded-circle align-self-start mt-2">
                     <div class="flex-column align-self-center ms-3 mt-1">
-                        <p class="fw-bold fs-6 mb-2">Silvy Galasso</p>
+                        <p class="fw-bold fs-6 mb-2">Silvy Marina Galaxy</p>
                         <p class="mb-1">Farsi scamm...<i class="bi bi-dot"></i> Big</p>
                         <p><i class="bi bi-disc"></i> Project Mangusta</p>
                     </div>
