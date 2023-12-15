@@ -1,7 +1,10 @@
-//Ticket 5-creazione-dinamica-playlists
-
 addEventListener("DOMContentLoaded", (e) => {
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+  const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
   creazionePlaylistSinistra();
+  grepAlbumPrincipale()
+  grepAlbumPiccolini(1)
+  ascoltoNomeUtente()
 });
 
 function creazionePlaylistSinistra() {
@@ -37,14 +40,7 @@ function creazionePlaylistSinistra() {
     playlistCol.appendChild(newA);
   });
 }
-//fine ticket 5
 
-
-//Inizio ticket 13-logica-js-index
-addEventListener("DOMContentLoaded", (e) => {
-
-  grepAlbumPrincipale()
-})
 
 async function grepAlbumPrincipale() {
   let arrayAlbum = ["1215290", "112854212", "230935602", "111212"];
@@ -61,7 +57,7 @@ async function grepAlbumPrincipale() {
         .then(json => oggettoJson = json)
         .catch(error => console.log(error))
 
-  console.log(oggettoJson.artist.name);
+  // console.log(oggettoJson.artist.name);
   let bannerPrincipaleAlbum = document.querySelector('#bannerPrincipaleAlbum')
   let colDiv = document.createElement('div');
   colDiv.classList = 'col';
@@ -93,6 +89,87 @@ async function grepAlbumPrincipale() {
 }
 
 
+async function grepAlbumPiccolini(numeroAlbum) {
+  let arrayAlbum = [];
+  if(numeroAlbum === 1) {
+    arrayAlbum = ["426918887", "301634897", "84690192", "285890322"];
+  } else if(numeroAlbum === 2) {
+    arrayAlbum = ["345613757", "51154512", "324136", "1098393"]; 
+  }
+  for(i = 0; i < arrayAlbum.length; i++){
+    let album = arrayAlbum[i]
+    let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${album}`
+    let oggettoJson = null;
+    await fetch(Url, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+            "User-Agent": "PostmanRuntime/7.35.0"
+        }
+        }).then(response => response.json())
+        .then(json => oggettoJson = json)
+        .catch(error => console.log(error))
+    
+    // console.log(oggettoJson);
+    let generiMusicali = oggettoJson.genres.data.map(genre => genre.name); 
+    let generiJoinati = generiMusicali.join(", ");
+    
+    let divPadre = document.querySelector('#cardDinamiche');
+    let cardSingola = document.createElement('div')
+    cardSingola.classList = 'col-3'
+    cardSingola.innerHTML = `
+            <div class="card mb-4">
+                <img src="${oggettoJson.cover_medium}" class="card-img-top p-4 img-fluid" alt="${oggettoJson.artist.name}">
+                <div class="card-body">
+                    <h5 class="card-title">${oggettoJson.title}</h5>
+                    <p class="card-text">${generiJoinati}</p>
+                    <span class="idAlbumPiccolo d-none">${oggettoJson.id}</span>
+                </div>
+            </div>
+        </div>
+    `
+    divPadre.appendChild(cardSingola)
+  }
+
+if(numeroAlbum === 1){
+  ascoltoVisualizzaTutto(); 
+}
+  
+}
 
 
-//fine ticket 13
+function ascoltoVisualizzaTutto() {
+    document.querySelector('#visualizzaTuttoPiccole').addEventListener('click', (e) => {
+      e.preventDefault();
+      grepAlbumPiccolini(2);  
+    })
+}
+
+
+function ascoltoNomeUtente() {
+  document.querySelector('#nomeUtente button').addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log("nome utente");
+    let colonnaDestra = document.querySelector('#activity');
+    let segno = document.querySelector('#nomeUtente button i')
+    console.log(segno.classList.value);
+
+    if(segno.classList.value == "bi bi-plus"){
+      colonnaDestra.classList.remove('d-none')
+      segno.classList = 'bi bi-dash-lg';
+    } else if(segno.classList.value == "bi bi-dash-lg") {
+      colonnaDestra.classList.add('d-none')
+      segno.classList = 'bi bi-plus'; 
+    }
+  })
+
+  document.querySelector('#croceX').addEventListener('click', (e) => {
+    // let croceX = document.querySelector('#croceX')
+    let colonnaDestra = document.querySelector('#activity');
+    let segno = document.querySelector('#nomeUtente button i')
+    colonnaDestra.classList.add('d-none')
+    segno.classList = 'bi bi-plus';  
+
+  })
+
+}
