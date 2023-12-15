@@ -13,10 +13,10 @@
 
 <body class="bg-dark">
     <div class="container-fluid">
-        <div class="row">
+        <div class="row ">
             <!-- colonna di sinistra -->
-            <div class="col-3 bg-black">
-                <div class="sticky-top bg-black border-bottom">
+            <div id="navbarL" class="col-3 bg-black">
+                <div id="sidebarL" class="bg-black">
                     <div class="row mb-4">
                         <div class="col">
                             <ul class="nav flex-column">
@@ -55,13 +55,17 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link txtside fs-6 fw-bold pt-0" href="#">
-                                        <div class="d-inline pe-2"><img src="assets/imgs/icons/heart.png" width="23px" alt=""></div>
-                                        Brani che ti piacciono</a>
+                                        <div class="d-inline pe-2"><img src="assets/imgs/icons/heart.png" width="23px"
+                                                alt=""></div>
+                                        Brani che ti piacciono
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link txtside fs-6 fw-bold pt-0" href="#">
-                                        <div class="d-inline pe-2"> <img src="assets/imgs/icons/flag.png" width="23px" alt=""></div>
-                                        I tuoi episodi</a>
+                                    <a class="nav-link txtside fs-6 fw-bold pt-0 mb-2" href="#">
+                                        <div class="d-inline pe-2"> <img src="assets/imgs/icons/flag.png" width="23px"
+                                                alt=""></div>
+                                        I tuoi episodi
+                                    </a>
                                 </li>
                             </ul>
                         </div>
@@ -69,15 +73,15 @@
                 </div>
 
                 <div class="row">
-                    <div id="playlistCol" class="row">
-                       <!-- qui si autocpmpleto con js  -->
+                    <div id="playlistCol" class="col d-flex flex-column">
+                        <!-- qui si autocpmpleto con js  -->
 
                     </div>
                 </div>
             </div>
 
             <!-- colonna centrale -->
-            <div id="corpo" class="col">
+            <div id="corpo" class="col gx-3 overflow-auto">
                 <!-- Frecce e profilo -->
                 <div class="row d-flex align-items-center my-3">
                     <div class="col">
@@ -272,55 +276,56 @@
             </div>
 
             <!-- colonna di destra -->
-            <div class="col-2 bg-black d-block">
-                <div class="d-flex flex-row justify-content-between mt-4">
+            <div id="activity" class="col-2 bg-black d-block">
+                <div class="d-flex justify-content-between align-items-baseline mt-3">
                     <h5 class="text-white">Attività amici</h5>
                     <div>
                         <a href="#"><i class="bi bi-person-plus mx-2 fs-5"></i></a>
                         <a href="#"><i class="bi bi-x-lg fs-5"></i></a>
                     </div>
                 </div>
-                <div class="d-flex flex-row justify-content-between sidebarR mt-5">
+                <div class="d-flex justify-content-between align-items-start sidebarR mt-5">
                     <img src="https://yt3.googleusercontent.com/uSEZEQN3bGuWCRqG1UT-DubHeLC4YNvy2vZY207f_EoBE0ebKZ4CWhvm1LV_emaLIb_Wm9aQ=s900-c-k-c0x00ffffff-no-rj"
-                        class="rounded-circle align-self-start">
-                    <div class="flex-column align-self-center flex-grow-1 mx-3 mt-1">
-                        <p class="fw-bold fs-6 text-white">Silvia Galaxy</p>
-                        <p>Comprare un sito<i class="bi bi-dot"></i>e farsi scamm...</p>
-                        <p><i class="bi bi-disc"></i> Fuffa Guru e come evitarli</p>
+                        class="rounded-circle align-self-start mt-2">
+                    <div class="flex-column align-self-center ms-3 mt-1">
+                        <p class="fw-bold fs-6 mb-2">Silvy Galasso</p>
+                        <p class="mb-1">Farsi scamm...<i class="bi bi-dot"></i> Big</p>
+                        <p><i class="bi bi-disc"></i> Project Mangusta</p>
                     </div>
-                    <div class="justify-content-end">
+                    <div class="d-flex justify-content-end w-25">
                         <p>1 ora</p>
                     </div>
+
                 </div>
-                <div class="d-flex flex-row justify-content-between sidebarR mt-5">
+
+                <div class="d-flex justify-content-between align-items-start sidebarR mt-3">
                     <img src="https://avatars.githubusercontent.com/u/55212933?v=4"
-                        class="rounded-circle align-self-start">
-                    <div class="flex-column align-self-center flex-grow-1 mx-3 mt-1">
-                        <p class="fw-bold fs-6 text-white">Mario Petrella</p>
-                        <p>Ti insegno<i class="bi bi-dot"></i>Easter-egg</p>
-                        <p><i class="bi bi-disc"></i> Easter Egg senior Analyst</p>
+                        class="rounded-circle align-self-start mt-2">
+                    <div class="flex-column align-self-center ms-3 mt-1">
+                        <p class="fw-bold fs-6 mb-2">Mario Petrella</p>
+                        <p class="mb-1">Ti imparo<i class="bi bi-dot"></i>Gianni C.</p>
+                        <p><i class="bi bi-disc"></i> Celeste: best of </p>
                     </div>
-                    <div class="justify-content-end">
+                    <div class="d-flex justify-content-end w-25">
                         <p>4 ore</p>
                     </div>
                 </div>
-                <div class="d-flex flex-row justify-content-between sidebarR mt-5">
+                <div class="d-flex justify-content-between align-items-start sidebarR mt-3">
                     <img src="https://universaldork.files.wordpress.com/2011/12/thriller.jpg"
-                        class="rounded-circle align-self-start">
-                    <div class="flex-column align-self-center flex-grow-1 mx-3 mt-1">
-                        <p class="fw-bold fs-6 text-white">Michael Jackson</p>
-                        <p>Golimar</p>
-                        <p><i class="bi bi-disc"></i> Thriller indian remake</p>
+                        class="rounded-circle align-self-start mt-2">
+                    <div class="flex-column align-self-center mx-3 mt-1">
+                        <p class="fw-bold fs-6 mb-2">Michael Json</p>
+                        <p class="mb-1">Golimar<i class="bi bi-dot"></i>Raj</p>
+                        <p><i class="bi bi-disc"></i> Thriller indian</p>
                     </div>
-                    <div class="justify-content-end">
-                        <p>20 ore</p>
+                    <div class="d-flex justify-content-end w-25">
+                        <p>2 ore</p>
                     </div>
                 </div>
             </div>
         </div>
 
         <div id="player" class="container-fluid bg-dark fixed-bottom z-3">
-
             <div class="master_play text-white d-flex justify-content-between align-items-center">
                 <div id="playerCard" class="card my-3 text-white" style="min-width: 0px;">
                     <div class="row d-flex align-items-center">
@@ -368,8 +373,8 @@
                     <div class="dot" id="vol_dot"></div>
                 </div>
             </div>
-
-            <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+        </div>
+        <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
