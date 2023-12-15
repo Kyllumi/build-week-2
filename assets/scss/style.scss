@@ -3,17 +3,29 @@
 @import "footer";
 @import "main";
 
+
+
+
 a {
   text-decoration: none;
   color: grey;
+
+  &:hover {
+    color: white;
+  }
+}
+
+body {
+  height: 100vh;
+  font-family: "Circular" sans-serif;
 }
 
 .nav-link {
   color: grey;
-}
 
-#corpo {
-  color: white;
+  &:hover {
+    color: white;
+  }
 }
 
 #player {
@@ -42,11 +54,63 @@ body {
 
 .txtside {
   color: #b1afa9;
-  font-family: "Circular" sans-serif;
+}
+
+#activity {
+margin-left: 0
 }
 
 .sidebarR p {
-  font-size: 12px;
-  line-height: 5px;
-  color: rgb(207, 206, 206);
+  font-size: 0.8rem;
+  color: #b1afa9;
+}
+
+#sidebarL {
+  border-bottom: 1px solid #212121;
+  overflow: hidden;
+  position: relative;
+  height: 40vh;
+}
+
+#playlistCol {
+  height: 60vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#corpo {
+  color: white;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  .row,
+  .col {
+    padding: 0;
+    margin: 0.2rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: #212529;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  position: sticky;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4D4D4D;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+#navbarL {
+  position: sticky;
+  top: 0;
 }
