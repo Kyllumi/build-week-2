@@ -34,3 +34,6 @@ Temporary Items
 #npm
 node_modules/
 bootstrap-5.3.2/
+
+#css createb by scss
+assets/style*
