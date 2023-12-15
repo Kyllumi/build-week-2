@@ -74,9 +74,10 @@ async function grepAlbumPrincipale() {
                   <p class="card-text">
                       ${oggettoJson.contributors[0].name}
                   </p>
+                  <span id="idNascostoPlayAlbumGrande" class="d-none">${oggettoJson.id}</span>
                   <p class="card-text">Ascolta un album Italiano</p>
                   <div class="bottoniAlbumPrincipale">
-                      <button type="button" class="btn btn-success me-3 px-4 py-2 rounded-5 text-black fw-bold">Play</button>
+                      <button id="playButtonAlbumGrande" type="button" class="btn btn-success me-3 px-4 py-2 rounded-5 text-black fw-bold">Play</button>
                       <button type="button" class="btn border-white text-white me-3 px-4 py-2 rounded-5 fw-bold">Save</button>
                       <i class="bi bi-three-dots"></i>
                   </div>
