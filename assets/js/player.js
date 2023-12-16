@@ -114,3 +114,21 @@ async function grepAlbum() {
       // console.log(oggettoJson);
       playAudio()
 }
+
+function dimmiGianluca() {
+
+  document.querySelector('body').addEventListener('click', (e) => {
+    let divPlayer = document.querySelector('#player');
+    let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+    let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
+    let artisti = document.querySelector('#titoloArtistiPlayer')
+    let sourceAudio = document.querySelector('#myAudio')
+    copertinaAlbum.setAttribute("src", "assets/imgs/main/40.png")
+    titoloCanzone.innerText = "Andiamo a fleXare with Gianluca 40"
+    artisti.innerText = "Gianluca Forty"
+    sourceAudio.setAttribute("src", "assets/audio/dimmi-gianluca.mp3")
+    localStorage.setItem('trackNumber', "0")
+    playAudio()
+  })
+  
+}
