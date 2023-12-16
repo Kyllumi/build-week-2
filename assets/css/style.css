@@ -11872,6 +11872,10 @@ textarea.form-control-lg {
   font-weight: 300;
 }
 
+.ditoMedio {
+  cursor: url("../imgs/icons/medio.cur"), auto;
+}
+
 a {
   text-decoration: none;
   color: grey;

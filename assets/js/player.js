@@ -78,10 +78,19 @@ document.querySelector('body').addEventListener('click', (e) => {
       grepAlbum()
     }
 
-    if(e.target.classList.value === 'card-body generati-01' || e.target.classList.value === 'card-text generati-01' || e.target.classList.value === 'card-title generati-01' || e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
-      console.log("weweee");
+    // if(e.target.classList.value === 'card-body generati-01' || e.target.classList.value === 'card-text generati-01' || e.target.classList.value === 'card-title generati-01' || e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
+    //   console.log("weweee");
+    // }
+    if(e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
+      let idNascostoAlbum = e.target.parentNode.childNodes[3].childNodes[5].innerText;
+      localStorage.setItem('trackNumber', "0");
+      localStorage.setItem('idAlbum', idNascostoAlbum);
+      let playAudio = document.querySelector('#playPause');
+      grepAlbum();
+      playAudio.classList.value = 'bi bi-play-circle-fill';
+      x.play();
     }
-    console.log(e.target);
+    // console.log(e.target);
         
 })
 
@@ -106,7 +115,11 @@ async function grepAlbum() {
 
       // console.log(oggettoJson);
       copertinaAlbum.setAttribute("src", oggettoJson.cover_medium)
-      titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short
+      if(oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short.length <= 24){
+        titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short
+      } else {
+        titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short.substring(0, 23) + "..."
+      }
       artisti.innerText = oggettoJson.artist.name
       sourceAudio.setAttribute("src", oggettoJson.tracks.data[localStorage.getItem('trackNumber')].preview)
       let oggettoString = JSON.stringify(oggettoJson)
@@ -117,7 +130,6 @@ async function grepAlbum() {
 
 function dimmiGianluca() {
 
-  document.querySelector('body').addEventListener('click', (e) => {
     let divPlayer = document.querySelector('#player');
     let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
     let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
@@ -129,6 +141,38 @@ function dimmiGianluca() {
     sourceAudio.setAttribute("src", "assets/audio/dimmi-gianluca.mp3")
     localStorage.setItem('trackNumber', "0")
     playAudio()
-  })
   
+}
+
+function tribalAcidHouse() {
+
+  let divPlayer = document.querySelector('#player');
+  let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+  let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
+  let artisti = document.querySelector('#titoloArtistiPlayer')
+  let sourceAudio = document.querySelector('#myAudio')
+  copertinaAlbum.setAttribute("src", "assets/imgs/main/acid-house.png")
+  titoloCanzone.innerText = "Tribal House"
+  artisti.innerText = "R. Sanchez, Joe T. Vannelli, C. Coccoluto"
+  sourceAudio.setAttribute("src", "assets/audio/tribal-acid-house.mp3")
+  localStorage.setItem('trackNumber', "0")
+  playAudio()
+
+}
+
+
+function dankMaurizio() {
+
+  let divPlayer = document.querySelector('#player');
+  let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+  let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
+  let artisti = document.querySelector('#titoloArtistiPlayer')
+  let sourceAudio = document.querySelector('#myAudio')
+  copertinaAlbum.setAttribute("src", "assets/imgs/main/costanzo.png")
+  titoloCanzone.innerText = "State Boni Lo-fi"
+  artisti.innerText = "Maurizio Kostanzo"
+  sourceAudio.setAttribute("src", "assets/audio/dank-maurizio.mp3")
+  localStorage.setItem('trackNumber', "0")
+  playAudio()
+
 }

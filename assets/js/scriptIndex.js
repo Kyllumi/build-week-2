@@ -125,9 +125,9 @@ async function grepAlbumPiccolini(numeroAlbum) {
     
     let divPadre = document.querySelector('#cardDinamiche');
     let cardSingola = document.createElement('div')
-    cardSingola.classList = 'col-3'
+    cardSingola.classList = 'col-3 mb-4'
     cardSingola.innerHTML = `
-            <div class="card mb-4 h-100">
+            <div class="card h-100">
                 <img src="${oggettoJson.cover_medium}" class="card-img-top p-4 img-fluid generati-01" alt="${oggettoJson.artist.name}">
                 <div class="card-body generati-01">
                     <h5 class="card-title generati-01">${oggettoJson.title}</h5>
