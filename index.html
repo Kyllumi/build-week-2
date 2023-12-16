@@ -189,7 +189,7 @@
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="card mb-3 border-0" onclick="tribalAcidHouse()">
+                            <div id="tribalAcidAle" class="card mb-3 border-0" onclick="tribalAcidHouse()">
                                 <div class="row g-0 h-100">
                                     <div class="col-md-4 h-100">
                                         <img src="assets/imgs/main/acid-house.png" class="img-fluid rounded-start"
@@ -314,7 +314,7 @@
 
                 <div class="d-flex justify-content-center align-items-center">
                     <span id="currentStart">0:00</span>
-                    <input type="range" value="40" min="0" max="100" step="1" class="statusBar slider-progress">
+                    <input id="progressBar" type="range" min="0" max="100" step=".1" value="0"  class="statusBar slider-progress">
                     <span id="currentEnd">0:00</span>
                 </div>
             </div>
@@ -323,7 +323,7 @@
                 <i class="bi bi-view-list"></i>
                 <i class="bi bi-speaker"></i>
                 <i class="bi bi-volume-up"></i>
-                <input type="range" id="vol" min="0" value="30" max="100">
+                <input id="controlloVolume" type="range" id="vol" min="0" value="70" max="100">
                 <div class="vol_bar"></div>
                 <div class="dot" id="vol_dot"></div>
                 <i class="bi bi-arrows-angle-expand"></i>

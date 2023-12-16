@@ -176,3 +176,57 @@ function dankMaurizio() {
   playAudio()
 
 }
+
+// richiamo funzioni sotto
+sliderPlayer()
+controlloVolume()
+
+
+function sliderPlayer() {
+  let audio = document.getElementById("myAudio");
+  let currentStart = document.getElementById("currentStart");
+  let currentEnd = document.getElementById("currentEnd");
+  let statusBar = document.querySelector(".slider-progress");
+
+  audio.ontimeupdate = function() {
+    if (isFinite(audio.duration)) {
+      let percentuale = (audio.currentTime / audio.duration) * 100;
+      statusBar.value = percentuale;
+
+      currentStart.textContent = convertiSecondiInMinuti(audio.currentTime);
+      currentEnd.textContent = convertiSecondiInMinuti(audio.duration);
+    }
+  };
+
+  // Funzione per convertire i secondi in formato minuti:secondi
+  function convertiSecondiInMinuti(secondi) {
+      let min = Math.floor(secondi / 60);
+      let sec = Math.floor(secondi % 60);
+      return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+  }
+
+  // Aggiungi un listener per quando l'utente cambia la posizione della status bar
+  statusBar.addEventListener('input', function() {
+      let durata = audio.duration;
+      let valore = statusBar.value;
+      audio.currentTime = (valore / 100) * durata;
+  });
+
+}
+
+
+function controlloVolume() {
+  document.addEventListener('DOMContentLoaded', function() {
+  let audio = document.getElementById('myAudio'); 
+  let controlloVolume = document.getElementById('controlloVolume');
+
+  audio.volume = controlloVolume.value / 100;
+
+  controlloVolume.addEventListener('input', function() {
+      audio.volume = this.value / 100;
+  });
+
+
+});
+
+}
