@@ -11901,6 +11901,7 @@ body {
   color: white;
 }
 #player .bi-skip-start-fill,
+#player .bi-pause-circle-fill,
 #player .bi-play-circle-fill,
 #player .bi-skip-end-fill {
   font-size: 2rem;
