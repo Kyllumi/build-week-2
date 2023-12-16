@@ -42,7 +42,7 @@ document.querySelector('body').addEventListener('click', (e) => {
         localStorage.setItem('trackNumber', "0")
         localStorage.setItem('idAlbum', idNascostoAlbum)
         let playAudio = document.querySelector('#playPause')
-        grepAlbum()
+        grepAlbum("playButtonAlbumGrande")
         playAudio.classList.value = 'bi bi-play-circle-fill'
         x.play();
         
@@ -54,13 +54,13 @@ document.querySelector('body').addEventListener('click', (e) => {
       if(+localStorage.getItem('trackNumber') >= lastTrack){
         localStorage.setItem('trackNumber', "0");
         playAudio()
-        grepAlbum()
+        grepAlbum('skip')
         return
       }
       let avanti = +localStorage.getItem('trackNumber') + 1
       localStorage.setItem('trackNumber', avanti)
       playAudio()
-      grepAlbum()
+      grepAlbum('skip')
     }
 
     if(e.target.id === 'vaiIndietro') {
@@ -69,13 +69,13 @@ document.querySelector('body').addEventListener('click', (e) => {
       if(+localStorage.getItem('trackNumber') == 0){
         localStorage.setItem('trackNumber', lastTrack);
         playAudio()
-        grepAlbum()
+        grepAlbum('skip')
         return
       }
       let indietro = +localStorage.getItem('trackNumber') - 1
       localStorage.setItem('trackNumber', indietro)
       playAudio()
-      grepAlbum()
+      grepAlbum('skip')
     }
 
     // if(e.target.classList.value === 'card-body generati-01' || e.target.classList.value === 'card-text generati-01' || e.target.classList.value === 'card-title generati-01' || e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
@@ -86,7 +86,7 @@ document.querySelector('body').addEventListener('click', (e) => {
       localStorage.setItem('trackNumber', "0");
       localStorage.setItem('idAlbum', idNascostoAlbum);
       let playAudio = document.querySelector('#playPause');
-      grepAlbum();
+      grepAlbum("albumDinamici");
       playAudio.classList.value = 'bi bi-play-circle-fill';
       x.play();
     }
@@ -95,7 +95,7 @@ document.querySelector('body').addEventListener('click', (e) => {
 })
 
 
-async function grepAlbum() {
+async function grepAlbum(provenienza) {
   let divPlayer = document.querySelector('#player');
   let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
   let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
@@ -125,6 +125,16 @@ async function grepAlbum() {
       let oggettoString = JSON.stringify(oggettoJson)
       localStorage.setItem('oggettoString', oggettoString)
       // console.log(oggettoJson);
+      let audio = document.getElementById('myAudio');
+      let tempoSalvato = localStorage.getItem('audioCurrentTime');
+      if (tempoSalvato) {
+        if(provenienza == "playButtonAlbumGrande" || provenienza == "albumDinamici" || provenienza == "skip"){
+          localStorage.setItem('audioCurrentTime', "0");
+        } else {
+          audio.currentTime = parseFloat(tempoSalvato);
+          console.log(provenienza)
+        }
+      }
       playAudio()
 }
 
@@ -190,13 +200,18 @@ function sliderPlayer() {
 
   audio.ontimeupdate = function() {
     if (isFinite(audio.duration)) {
-      let percentuale = (audio.currentTime / audio.duration) * 100;
-      statusBar.value = percentuale;
+        let percentuale = (audio.currentTime / audio.duration) * 100;
+        statusBar.value = percentuale;
 
-      currentStart.textContent = convertiSecondiInMinuti(audio.currentTime);
-      currentEnd.textContent = convertiSecondiInMinuti(audio.duration);
+        currentStart.textContent = convertiSecondiInMinuti(audio.currentTime);
+        currentEnd.textContent = convertiSecondiInMinuti(audio.duration);
+
+        // Controllo per passare alla prossima traccia
+        if (percentuale >= 99.9) {
+            vaiAllaProssimaTraccia();
+        }
     }
-  };
+};
 
   // Funzione per convertire i secondi in formato minuti:secondi
   function convertiSecondiInMinuti(secondi) {
@@ -229,4 +244,39 @@ function controlloVolume() {
 
 });
 
+}
+
+function salvaTempoCorrenteAudio() {
+  let audio = document.getElementById("myAudio");
+
+  setInterval(() => {
+      if (!audio.paused) {
+          localStorage.setItem('audioCurrentTime', audio.currentTime);
+      }
+  }, 300);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  salvaTempoCorrenteAudio();
+  let audio = document.getElementById('myAudio');
+  let tempoSalvato = localStorage.getItem('audioCurrentTime');
+  if (tempoSalvato) {
+    audio.currentTime = parseFloat(tempoSalvato);
+  }
+});
+
+
+function vaiAllaProssimaTraccia() {
+  let jsonNew = JSON.parse(localStorage.getItem('oggettoString'));
+  let trackNumber = +localStorage.getItem('trackNumber');
+  let lastTrack = jsonNew.tracks.data.length - 1;
+
+  if (trackNumber < lastTrack) {
+      localStorage.setItem('trackNumber', trackNumber + 1);
+  } else {
+      localStorage.setItem('trackNumber', "0"); // Ritorna alla prima traccia o gestisci come preferisci
+  }
+
+  grepAlbum('skip');
+  playAudio();
 }

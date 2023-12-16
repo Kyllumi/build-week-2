@@ -101,7 +101,7 @@ async function grepAlbumPrincipale(indexPrescelto) {
 async function grepAlbumPiccolini(numeroAlbum) {
   let arrayAlbum = [];
   if(numeroAlbum === 1) {
-    arrayAlbum = ["426918887", "301634897", "84690192", "285890322"];
+    arrayAlbum = ["134980812", "481451035", "84690192", "285890322"];
   } else if(numeroAlbum === 2) {
     arrayAlbum = ["345613757", "51154512", "324136", "1098393"]; 
   }
