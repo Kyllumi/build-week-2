@@ -5,6 +5,7 @@ addEventListener("DOMContentLoaded", (e) => {
   grepAlbumPrincipale()
   grepAlbumPiccolini(1)
   ascoltoNomeUtente()
+  ascoltoCambioAlbumGrande()
 });
 
 function creazionePlaylistSinistra() {
@@ -42,9 +43,16 @@ function creazionePlaylistSinistra() {
 }
 
 
-async function grepAlbumPrincipale() {
+async function grepAlbumPrincipale(indexPrescelto) {
+  let randomIndex = 0;
+  if(indexPrescelto != undefined){
+    console.log(indexPrescelto); 
+    randomIndex = indexPrescelto
+  } else {
+    randomIndex = Math.floor(Math.random() * 4);
+  }
+  localStorage.setItem("indexNumberAlbum", randomIndex)
   let arrayAlbum = ["1215290", "112854212", "230935602", "111212"];
-  let randomIndex = Math.floor(Math.random() * 4);
   let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${arrayAlbum[randomIndex]}`
   let oggettoJson = null;
     await fetch(Url, {
@@ -59,9 +67,8 @@ async function grepAlbumPrincipale() {
 
   // console.log(oggettoJson.artist.name);
   let bannerPrincipaleAlbum = document.querySelector('#bannerPrincipaleAlbum')
-  let colDiv = document.createElement('div');
-  colDiv.classList = 'col';
-  colDiv.innerHTML = `
+  bannerPrincipaleAlbum.innerHTML = `
+  <div class="col">
       <div class="card bg-black text-white mb-3">
       <div class="row g-0">
           <div class="col-md-4">
@@ -74,9 +81,11 @@ async function grepAlbumPrincipale() {
                   <p class="card-text">
                       ${oggettoJson.contributors[0].name}
                   </p>
+                  <span id="idNascostoPlayAlbumGrande" class="d-none">${oggettoJson.id}</span>
+                  <span id="randomIndexAlbumGrande" class="d-none">${randomIndex}</span>
                   <p class="card-text">Ascolta un album Italiano</p>
                   <div class="bottoniAlbumPrincipale">
-                      <button type="button" class="btn btn-success me-3 px-4 py-2 rounded-5 text-black fw-bold">Play</button>
+                      <button id="playButtonAlbumGrande" type="button" class="btn btn-success me-3 px-4 py-2 rounded-5 text-black fw-bold">Play</button>
                       <button type="button" class="btn border-white text-white me-3 px-4 py-2 rounded-5 fw-bold">Save</button>
                       <i class="bi bi-three-dots"></i>
                   </div>
@@ -84,8 +93,8 @@ async function grepAlbumPrincipale() {
           </div>
       </div>
     </div>
+    </div>
   `
-  bannerPrincipaleAlbum.appendChild(colDiv)
 }
 
 
@@ -118,11 +127,11 @@ async function grepAlbumPiccolini(numeroAlbum) {
     let cardSingola = document.createElement('div')
     cardSingola.classList = 'col-3'
     cardSingola.innerHTML = `
-            <div class="card mb-4">
-                <img src="${oggettoJson.cover_medium}" class="card-img-top p-4 img-fluid" alt="${oggettoJson.artist.name}">
-                <div class="card-body">
-                    <h5 class="card-title">${oggettoJson.title}</h5>
-                    <p class="card-text">${generiJoinati}</p>
+            <div class="card mb-4 h-100">
+                <img src="${oggettoJson.cover_medium}" class="card-img-top p-4 img-fluid generati-01" alt="${oggettoJson.artist.name}">
+                <div class="card-body generati-01">
+                    <h5 class="card-title generati-01">${oggettoJson.title}</h5>
+                    <p class="card-text generati-01">${generiJoinati}</p>
                     <span class="idAlbumPiccolo d-none">${oggettoJson.id}</span>
                 </div>
             </div>
@@ -172,4 +181,31 @@ function ascoltoNomeUtente() {
 
   })
 
+}
+
+
+function ascoltoCambioAlbumGrande() {
+  document.querySelector('#freccieCambioAlbumGrande').addEventListener('click', (e) => {
+    e.preventDefault();
+    if(e.target.classList.value === 'bi bi-chevron-left'){
+      let actualIndex = +localStorage.getItem('indexNumberAlbum')
+      console.log(actualIndex);
+      if(actualIndex === 0){
+        actualIndex = 3
+      } else {
+        actualIndex--
+      }
+      grepAlbumPrincipale(actualIndex)
+    }
+    if(e.target.classList.value === 'bi bi-chevron-right'){
+      let actualIndex = +localStorage.getItem('indexNumberAlbum')
+      console.log(actualIndex);
+      if(actualIndex === 3){
+        actualIndex = 0
+      } else {
+        actualIndex++
+      }
+      grepAlbumPrincipale(actualIndex)
+    }
+  })
 }

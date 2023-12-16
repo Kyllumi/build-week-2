@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <link rel="icon" type="image/x-icon" href="assets/imgs/icons/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Spotify</title>
@@ -14,6 +15,7 @@
 <body class="bg-dark">
     <div class="container-fluid">
         <div id="corpoSpotify" class="row">
+            
             <!-- colonna di sinistra -->
             <div id="navbarL" class="col-3">
                 <div id="sidebarL">
@@ -85,8 +87,8 @@
             <!-- colonna centrale -->
             <div id="corpo" class="col gx-3 overflow-auto">
                 <!-- Frecce e profilo -->
-                <div class="row d-flex align-items-center my-3">
-                    <div class="col">
+                <div class="row d-flex align-items-center m-3">
+                    <div class="col" id="freccieCambioAlbumGrande">
                         <i class="bi bi-chevron-left"></i>
                         <i class="bi bi-chevron-right"></i>
                     </div>
@@ -101,30 +103,7 @@
 
                 <!-- Banner -->
                 <div id="bannerPrincipaleAlbum" class="row">
-                    <!-- <div class="col">
-                        <div class="card bg-black text-white mb-3">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    <img src="assets/imgs/main/image-10.jpg" class="img-fluid rounded-start p-4" alt="...">
-                                </div>
-                                <div class="col-md-8">
-                                    <div class="card-body p-4">
-                                        <span>ALBUM</span>
-                                        <h1 class="card-title">TITOLO ALBUM</h1>
-                                        <p class="card-text">
-                                            Autori dell'album
-                                        </p>
-                                        <p class="card-text">Ascolta un album Italiano</p>
-                                        <div class="bottoniAlbumPrincipale">
-                                            <button type="button" class="btn btn-success me-3 px-4 py-2 rounded-5 text-black fw-bold">Play</button>
-                                            <button type="button" class="btn border-white text-white me-3 px-4 py-2 rounded-5 fw-bold">Save</button>
-                                            <i class="bi bi-three-dots"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                    <!-- autogenerato da JS -->
                 </div>
 
                 <!-- Playlists -->
@@ -133,8 +112,8 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="card mb-3 border-0">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
+                                <div class="row g-0 h-100">
+                                    <div class="col-md-4 h-100">
                                         <img src="assets/imgs/main/costanzo.png" class="img-fluid rounded-start"
                                             alt="...">
                                     </div>
@@ -149,8 +128,8 @@
                         </div>
                         <div class="col-4">
                             <div class="card mb-3 border-0">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
+                                <div class="row g-0 h-100">
+                                    <div class="col-md-4 h-100">
                                         <img src="assets/imgs/main/wh.png" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 d-flex align-items-center">
@@ -164,8 +143,8 @@
                         </div>
                         <div class="col-4">
                             <div class="card mb-3 border-0">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
+                                <div class="row g-0 h-100">
+                                    <div class="col-md-4 h-100">
                                         <img src="assets/imgs/main/40.png" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 d-flex align-items-center">
@@ -181,8 +160,8 @@
                     <div class="row">
                         <div class="col-4">
                             <div class="card mb-3 border-0">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
+                                <div class="row g-0 h-100">
+                                    <div class="col-md-4 h-100">
                                         <img src="assets/imgs/main/liked.png" class="img-fluid rounded-start" alt="...">
                                     </div>
                                     <div class="col-md-8 d-flex align-items-center">
@@ -195,8 +174,8 @@
                         </div>
                         <div class="col-4">
                             <div class="card mb-3 border-0">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
+                                <div class="row g-0 h-100">
+                                    <div class="col-md-4 h-100">
                                         <img src="assets/imgs/main/galaxy.png" class="img-fluid rounded-start"
                                             alt="...">
                                     </div>
@@ -211,8 +190,8 @@
                         </div>
                         <div class="col-4">
                             <div class="card mb-3 border-0">
-                                <div class="row g-0">
-                                    <div class="col-md-4">
+                                <div class="row g-0 h-100">
+                                    <div class="col-md-4 h-100">
                                         <img src="assets/imgs/main/acid-house.png" class="img-fluid rounded-start"
                                             alt="...">
                                     </div>
@@ -238,45 +217,7 @@
                 <!-- CARD DINAMICHE -->
                 <div id="cardDinamiche" class="row d-flex justify-content-center">
                     <div class="row">
-                        <!-- <div class="col">
-                            <div class="card">
-                                <img src="assets/imgs/main/image-10.jpg" class="card-img-top p-4" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">NOME ALBUM</h5>
-                                    <p class="card-text">GENERI MUSICALI</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <img src="assets/imgs/main/image-10.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural
-                                        lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <img src="assets/imgs/main/image-10.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural
-                                        lead-in to additional content.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <img src="assets/imgs/main/image-10.jpg" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a longer card with supporting text below as a natural
-                                        lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-                            </div>
-                        </div> -->
+                      <!-- autogenerate da JS  -->
                     </div>
                 </div>
                 <div class="divider"></div>
@@ -337,18 +278,19 @@
 
         </div>
 
+        <!-- player audio -->
         <div id="player"
             class="text-white d-flex justify-content-between align-items-center container-fluid bg-dark fixed-bottom z-3">
             <div id="playerCard" class="card my-3 text-white border-0 ms-2">
                 <div class="row d-flex align-items-center">
                     <div class="col-3 p-1">
-                        <img src="assets/imgs/main/image-10.jpg" class="img-fluid rounded" alt="img canzone">
+                        <img src="https://e-cdns-images.dzcdn.net/images/cover/f61b7bb95d2fc1b7aec6ba310cb1455d/250x250-000000-80-0-0.jpg" class="img-fluid rounded" alt="img canzone">
                     </div>
                     <div class="col-9">
                         <div class="card-body p-1 d-flex justify-content-between align-items-center">
                             <div>
-                                <h6>Titolo canzone</h6>
-                                <p class="card-text">This is a wider carde bit longer.</p>
+                                <h6 id="titoloCanzonePlayer">Summer On A Solitary Beach</h6>
+                                <p id="titoloArtistiPlayer" class="card-text">Franco Battiato</p>
                             </div>
                             <i class="bi bi-heart fs-6 ms-3"></i>
                         </div>
@@ -357,11 +299,16 @@
             </div>
 
             <div id="playerIcons" class="text-center">
+                <!-- <audio id="audio" src="https://cdns-preview-8.dzcdn.net/stream/c-8bff5d0342889868441484876151fc53-4.mp3"></audio> -->
+                <audio id="myAudio">
+                    <source src="https://cdns-preview-8.dzcdn.net/stream/c-8bff5d0342889868441484876151fc53-4.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                  </audio>
                 <div class="icon d-flex justify-content-center align-items-center">
                     <i class="bi bi-shuffle"></i>
-                    <i class="bi bi-skip-start-fill"></i>
-                    <i class="bi bi-play-circle-fill"></i>
-                    <i class="bi bi-skip-end-fill"></i>
+                    <a href="#" id="vaiIndietro" class="bi bi-skip-start-fill"></a>
+                    <a href="#" id="playPause" onclick="playAudio()" class="bi bi-play-circle-fill"></a>
+                    <a href="#" class="bi bi-skip-end-fill" id="vaiAvanti" ></a>
                     <i class="bi bi-repeat"></i>
                 </div>
 
@@ -385,6 +332,7 @@
 
 
         <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+        <script src="assets/js/player.js"></script>
+        </body>
 
 </html>
