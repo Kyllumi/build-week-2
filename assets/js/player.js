@@ -1,4 +1,4 @@
-let x = document.getElementById("myAudio"); 
+let x = document.querySelector('#myAudio'); 
 
 function playAudio() { 
   let playAudio = document.querySelector('#playPause')
@@ -13,6 +13,8 @@ function playAudio() {
     return
   }
 } 
+
+
 
 
 

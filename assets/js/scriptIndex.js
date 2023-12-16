@@ -45,13 +45,13 @@ function creazionePlaylistSinistra() {
 
 async function grepAlbumPrincipale(indexPrescelto) {
   let randomIndex = 0;
-  if(indexPrescelto){
+  if(indexPrescelto != undefined){
     console.log(indexPrescelto); 
     randomIndex = indexPrescelto
   } else {
     randomIndex = Math.floor(Math.random() * 4);
   }
-  console.log("proprio prima di lanciare URL " + "ecco randomindex " + randomIndex);
+  localStorage.setItem("indexNumberAlbum", randomIndex)
   let arrayAlbum = ["1215290", "112854212", "230935602", "111212"];
   let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${arrayAlbum[randomIndex]}`
   let oggettoJson = null;
@@ -188,29 +188,23 @@ function ascoltoCambioAlbumGrande() {
   document.querySelector('#freccieCambioAlbumGrande').addEventListener('click', (e) => {
     e.preventDefault();
     if(e.target.classList.value === 'bi bi-chevron-left'){
-      let actualIndex = +document.querySelector('#randomIndexAlbumGrande').innerText;
+      let actualIndex = +localStorage.getItem('indexNumberAlbum')
+      console.log(actualIndex);
       if(actualIndex === 0){
         actualIndex = 3
       } else {
         actualIndex--
       }
-      console.log(actualIndex);
       grepAlbumPrincipale(actualIndex)
     }
     if(e.target.classList.value === 'bi bi-chevron-right'){
-      let actualIndex = +document.querySelector('#randomIndexAlbumGrande').innerText;
+      let actualIndex = +localStorage.getItem('indexNumberAlbum')
+      console.log(actualIndex);
       if(actualIndex === 3){
-        console.log("sono dentro if " + actualIndex);
         actualIndex = 0
-        console.log(actualIndex);
-        console.log("================");
       } else {
-        console.log("sono dentro else " + actualIndex);
         actualIndex++
-        console.log(actualIndex);
-        console.log("================");
       }
-      console.log("sono prima di lanciare grepAlbum " + actualIndex);
       grepAlbumPrincipale(actualIndex)
     }
   })
