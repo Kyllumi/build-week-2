@@ -101,7 +101,7 @@ async function grepAlbumPrincipale(indexPrescelto) {
 async function grepAlbumPiccolini(numeroAlbum) {
   let arrayAlbum = [];
   if(numeroAlbum === 1) {
-    arrayAlbum = ["426918887", "301634897", "84690192", "285890322"];
+    arrayAlbum = ["134980812", "481451035", "84690192", "285890322"];
   } else if(numeroAlbum === 2) {
     arrayAlbum = ["345613757", "51154512", "324136", "1098393"]; 
   }
@@ -125,9 +125,9 @@ async function grepAlbumPiccolini(numeroAlbum) {
     
     let divPadre = document.querySelector('#cardDinamiche');
     let cardSingola = document.createElement('div')
-    cardSingola.classList = 'col-3'
+    cardSingola.classList = 'col-3 mb-4'
     cardSingola.innerHTML = `
-            <div class="card mb-4 h-100">
+            <div class="card h-100">
                 <img src="${oggettoJson.cover_medium}" class="card-img-top p-4 img-fluid generati-01" alt="${oggettoJson.artist.name}">
                 <div class="card-body generati-01">
                     <h5 class="card-title generati-01">${oggettoJson.title}</h5>

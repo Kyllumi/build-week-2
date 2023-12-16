@@ -42,7 +42,7 @@ document.querySelector('body').addEventListener('click', (e) => {
         localStorage.setItem('trackNumber', "0")
         localStorage.setItem('idAlbum', idNascostoAlbum)
         let playAudio = document.querySelector('#playPause')
-        grepAlbum()
+        grepAlbum("playButtonAlbumGrande")
         playAudio.classList.value = 'bi bi-play-circle-fill'
         x.play();
         
@@ -54,13 +54,13 @@ document.querySelector('body').addEventListener('click', (e) => {
       if(+localStorage.getItem('trackNumber') >= lastTrack){
         localStorage.setItem('trackNumber', "0");
         playAudio()
-        grepAlbum()
+        grepAlbum('skip')
         return
       }
       let avanti = +localStorage.getItem('trackNumber') + 1
       localStorage.setItem('trackNumber', avanti)
       playAudio()
-      grepAlbum()
+      grepAlbum('skip')
     }
 
     if(e.target.id === 'vaiIndietro') {
@@ -69,24 +69,33 @@ document.querySelector('body').addEventListener('click', (e) => {
       if(+localStorage.getItem('trackNumber') == 0){
         localStorage.setItem('trackNumber', lastTrack);
         playAudio()
-        grepAlbum()
+        grepAlbum('skip')
         return
       }
       let indietro = +localStorage.getItem('trackNumber') - 1
       localStorage.setItem('trackNumber', indietro)
       playAudio()
-      grepAlbum()
+      grepAlbum('skip')
     }
 
-    if(e.target.classList.value === 'card-body generati-01' || e.target.classList.value === 'card-text generati-01' || e.target.classList.value === 'card-title generati-01' || e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
-      console.log("weweee");
+    // if(e.target.classList.value === 'card-body generati-01' || e.target.classList.value === 'card-text generati-01' || e.target.classList.value === 'card-title generati-01' || e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
+    //   console.log("weweee");
+    // }
+    if(e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
+      let idNascostoAlbum = e.target.parentNode.childNodes[3].childNodes[5].innerText;
+      localStorage.setItem('trackNumber', "0");
+      localStorage.setItem('idAlbum', idNascostoAlbum);
+      let playAudio = document.querySelector('#playPause');
+      grepAlbum("albumDinamici");
+      playAudio.classList.value = 'bi bi-play-circle-fill';
+      x.play();
     }
-    console.log(e.target);
+    // console.log(e.target);
         
 })
 
 
-async function grepAlbum() {
+async function grepAlbum(provenienza) {
   let divPlayer = document.querySelector('#player');
   let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
   let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
@@ -106,11 +115,168 @@ async function grepAlbum() {
 
       // console.log(oggettoJson);
       copertinaAlbum.setAttribute("src", oggettoJson.cover_medium)
-      titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short
+      if(oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short.length <= 24){
+        titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short
+      } else {
+        titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short.substring(0, 23) + "..."
+      }
       artisti.innerText = oggettoJson.artist.name
       sourceAudio.setAttribute("src", oggettoJson.tracks.data[localStorage.getItem('trackNumber')].preview)
       let oggettoString = JSON.stringify(oggettoJson)
       localStorage.setItem('oggettoString', oggettoString)
       // console.log(oggettoJson);
+      let audio = document.getElementById('myAudio');
+      let tempoSalvato = localStorage.getItem('audioCurrentTime');
+      if (tempoSalvato) {
+        if(provenienza == "playButtonAlbumGrande" || provenienza == "albumDinamici" || provenienza == "skip"){
+          localStorage.setItem('audioCurrentTime', "0");
+        } else {
+          audio.currentTime = parseFloat(tempoSalvato);
+          console.log(provenienza)
+        }
+      }
       playAudio()
+}
+
+function dimmiGianluca() {
+
+    let divPlayer = document.querySelector('#player');
+    let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+    let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
+    let artisti = document.querySelector('#titoloArtistiPlayer')
+    let sourceAudio = document.querySelector('#myAudio')
+    copertinaAlbum.setAttribute("src", "assets/imgs/main/40.png")
+    titoloCanzone.innerText = "Andiamo a fleXare with Gianluca 40"
+    artisti.innerText = "Gianluca Forty"
+    sourceAudio.setAttribute("src", "assets/audio/dimmi-gianluca.mp3")
+    localStorage.setItem('trackNumber', "0")
+    playAudio()
+  
+}
+
+function tribalAcidHouse() {
+
+  let divPlayer = document.querySelector('#player');
+  let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+  let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
+  let artisti = document.querySelector('#titoloArtistiPlayer')
+  let sourceAudio = document.querySelector('#myAudio')
+  copertinaAlbum.setAttribute("src", "assets/imgs/main/acid-house.png")
+  titoloCanzone.innerText = "Tribal House"
+  artisti.innerText = "R. Sanchez, Joe T. Vannelli, C. Coccoluto"
+  sourceAudio.setAttribute("src", "assets/audio/tribal-acid-house.mp3")
+  localStorage.setItem('trackNumber', "0")
+  playAudio()
+
+}
+
+
+function dankMaurizio() {
+
+  let divPlayer = document.querySelector('#player');
+  let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+  let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
+  let artisti = document.querySelector('#titoloArtistiPlayer')
+  let sourceAudio = document.querySelector('#myAudio')
+  copertinaAlbum.setAttribute("src", "assets/imgs/main/costanzo.png")
+  titoloCanzone.innerText = "State Boni Lo-fi"
+  artisti.innerText = "Maurizio Kostanzo"
+  sourceAudio.setAttribute("src", "assets/audio/dank-maurizio.mp3")
+  localStorage.setItem('trackNumber', "0")
+  playAudio()
+
+}
+
+// richiamo funzioni sotto
+sliderPlayer()
+controlloVolume()
+
+
+function sliderPlayer() {
+  let audio = document.getElementById("myAudio");
+  let currentStart = document.getElementById("currentStart");
+  let currentEnd = document.getElementById("currentEnd");
+  let statusBar = document.querySelector(".slider-progress");
+
+  audio.ontimeupdate = function() {
+    if (isFinite(audio.duration)) {
+        let percentuale = (audio.currentTime / audio.duration) * 100;
+        statusBar.value = percentuale;
+
+        currentStart.textContent = convertiSecondiInMinuti(audio.currentTime);
+        currentEnd.textContent = convertiSecondiInMinuti(audio.duration);
+
+        // Controllo per passare alla prossima traccia
+        if (percentuale >= 99.9) {
+            vaiAllaProssimaTraccia();
+        }
+    }
+};
+
+  // Funzione per convertire i secondi in formato minuti:secondi
+  function convertiSecondiInMinuti(secondi) {
+      let min = Math.floor(secondi / 60);
+      let sec = Math.floor(secondi % 60);
+      return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+  }
+
+  // Aggiungi un listener per quando l'utente cambia la posizione della status bar
+  statusBar.addEventListener('input', function() {
+      let durata = audio.duration;
+      let valore = statusBar.value;
+      audio.currentTime = (valore / 100) * durata;
+  });
+
+}
+
+
+function controlloVolume() {
+  document.addEventListener('DOMContentLoaded', function() {
+  let audio = document.getElementById('myAudio'); 
+  let controlloVolume = document.getElementById('controlloVolume');
+
+  audio.volume = controlloVolume.value / 100;
+
+  controlloVolume.addEventListener('input', function() {
+      audio.volume = this.value / 100;
+  });
+
+
+});
+
+}
+
+function salvaTempoCorrenteAudio() {
+  let audio = document.getElementById("myAudio");
+
+  setInterval(() => {
+      if (!audio.paused) {
+          localStorage.setItem('audioCurrentTime', audio.currentTime);
+      }
+  }, 300);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  salvaTempoCorrenteAudio();
+  let audio = document.getElementById('myAudio');
+  let tempoSalvato = localStorage.getItem('audioCurrentTime');
+  if (tempoSalvato) {
+    audio.currentTime = parseFloat(tempoSalvato);
+  }
+});
+
+
+function vaiAllaProssimaTraccia() {
+  let jsonNew = JSON.parse(localStorage.getItem('oggettoString'));
+  let trackNumber = +localStorage.getItem('trackNumber');
+  let lastTrack = jsonNew.tracks.data.length - 1;
+
+  if (trackNumber < lastTrack) {
+      localStorage.setItem('trackNumber', trackNumber + 1);
+  } else {
+      localStorage.setItem('trackNumber', "0"); // Ritorna alla prima traccia o gestisci come preferisci
+  }
+
+  grepAlbum('skip');
+  playAudio();
 }

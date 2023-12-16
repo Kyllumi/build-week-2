@@ -15,3 +15,47 @@
         font-weight: 300;
     }
 }
+
+.card-img-top, #tribalAcidAle {
+    cursor: pointer;
+}
+
+#dimmiGianluca {
+    cursor: url('../imgs/icons/40.cur'), auto;
+}
+
+.ditoMedio {
+    cursor: url('../imgs/icons/medio.cur'), auto;
+}
+
+
+input[type="range"] {
+    width: 32rem;
+    height: 0.3rem;
+    background-color: blue;
+    margin: 0 0.3rem;
+
+    &::-moz-range-thumb {
+        width: 10px;
+        height: 10px;
+        background: #dce0dc;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    &::-moz-range-track {
+        background: rgb(137, 137, 163);
+        height: 0.3rem;
+    }
+
+    &::-moz-range-progress {
+        background: #4CAF50;
+    }
+}
+
+
+
+
+
+
+
