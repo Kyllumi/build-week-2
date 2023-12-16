@@ -23,8 +23,15 @@ function playAudio() {
 if(!localStorage.getItem('trackNumber')){
   localStorage.setItem('trackNumber', "0")
   localStorage.setItem('idAlbum', "230935602")
+  let playAudio = document.querySelector('#playPause')
+  x.pause();
+  playAudio.classList.value = 'bi bi-pause-circle-fill'
   grepAlbum()
-  
+} else {
+  let playAudio = document.querySelector('#playPause')
+  x.pause();
+  playAudio.classList.value = 'bi bi-pause-circle-fill'
+  grepAlbum()
 }
 
 
@@ -34,7 +41,10 @@ document.querySelector('body').addEventListener('click', (e) => {
         // console.log(idNascostoAlbum);
         localStorage.setItem('trackNumber', "0")
         localStorage.setItem('idAlbum', idNascostoAlbum)
+        let playAudio = document.querySelector('#playPause')
         grepAlbum()
+        playAudio.classList.value = 'bi bi-play-circle-fill'
+        x.play();
         
     }
       
