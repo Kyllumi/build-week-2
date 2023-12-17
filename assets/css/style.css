@@ -12074,4 +12074,42 @@ input[type=range] {
 .d-inline.pe-2 {
   width: 1.5rem;
   height: 1.5rem;
+}
+
+#playPauseNew {
+  color: #1ed760;
+  font-size: 3rem;
+}
+
+#albumInfo {
+  font-size: 80%;
+}
+
+#corpoAlbum {
+  background: rgb(117, 101, 41);
+  background: linear-gradient(0deg, rgb(117, 101, 41) 24%, rgb(204, 177, 73) 83%);
+}
+
+.corpoAlbumNew {
+  background: rgb(18, 18, 18);
+  background: linear-gradient(0deg, rgb(18, 18, 18) 19%, rgb(39, 35, 22) 46%, rgb(91, 78, 32) 83%);
+}
+
+.propicArtist {
+  width: 2rem;
+}
+
+.titoloAlbumNew {
+  font-size: 6rem;
+}
+
+#corpoAlbum {
+  color: white;
+  height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+#corpoAlbum::-webkit-scrollbar-track {
+  background: rgb(0, 0, 0);
+  background: linear-gradient(24deg, rgb(0, 0, 0) 0%, rgb(32, 32, 32) 100%);
 }/*# sourceMappingURL=style.css.map */
