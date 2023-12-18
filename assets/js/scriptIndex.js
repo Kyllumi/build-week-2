@@ -45,8 +45,8 @@ function creazionePlaylistSinistra() {
 
 async function grepAlbumPrincipale(indexPrescelto) {
   let randomIndex = 0;
-  if(indexPrescelto != undefined){
-    console.log(indexPrescelto); 
+  if (indexPrescelto != undefined) {
+    console.log(indexPrescelto);
     randomIndex = indexPrescelto
   } else {
     randomIndex = Math.floor(Math.random() * 4);
@@ -55,15 +55,15 @@ async function grepAlbumPrincipale(indexPrescelto) {
   let arrayAlbum = ["1215290", "112854212", "230935602", "111212"];
   let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${arrayAlbum[randomIndex]}`
   let oggettoJson = null;
-    await fetch(Url, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            "User-Agent": "PostmanRuntime/7.35.0"
-        }
-        }).then(response => response.json())
-        .then(json => oggettoJson = json)
-        .catch(error => console.log(error))
+  await fetch(Url, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "User-Agent": "PostmanRuntime/7.35.0"
+    }
+  }).then(response => response.json())
+    .then(json => oggettoJson = json)
+    .catch(error => console.log(error))
 
   // console.log(oggettoJson.artist.name);
   let bannerPrincipaleAlbum = document.querySelector('#bannerPrincipaleAlbum')
@@ -100,29 +100,29 @@ async function grepAlbumPrincipale(indexPrescelto) {
 
 async function grepAlbumPiccolini(numeroAlbum) {
   let arrayAlbum = [];
-  if(numeroAlbum === 1) {
+  if (numeroAlbum === 1) {
     arrayAlbum = ["134980812", "481451035", "84690192", "285890322"];
-  } else if(numeroAlbum === 2) {
-    arrayAlbum = ["345613757", "51154512", "324136", "1098393"]; 
+  } else if (numeroAlbum === 2) {
+    arrayAlbum = ["345613757", "51154512", "324136", "1098393"];
   }
-  for(i = 0; i < arrayAlbum.length; i++){
+  for (i = 0; i < arrayAlbum.length; i++) {
     let album = arrayAlbum[i]
     let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${album}`
     let oggettoJson = null;
     await fetch(Url, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            "User-Agent": "PostmanRuntime/7.35.0"
-        }
-        }).then(response => response.json())
-        .then(json => oggettoJson = json)
-        .catch(error => console.log(error))
-    
+      method: 'GET',
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": "PostmanRuntime/7.35.0"
+      }
+    }).then(response => response.json())
+      .then(json => oggettoJson = json)
+      .catch(error => console.log(error))
+
     // console.log(oggettoJson);
-    let generiMusicali = oggettoJson.genres.data.map(genre => genre.name); 
+    let generiMusicali = oggettoJson.genres.data.map(genre => genre.name);
     let generiJoinati = generiMusicali.join(", ");
-    
+
     let divPadre = document.querySelector('#cardDinamiche');
     let cardSingola = document.createElement('div')
     cardSingola.classList = 'col-3 mb-4'
@@ -140,18 +140,18 @@ async function grepAlbumPiccolini(numeroAlbum) {
     divPadre.appendChild(cardSingola)
   }
 
-if(numeroAlbum === 1){
-  ascoltoVisualizzaTutto(); 
-}
-  
+  if (numeroAlbum === 1) {
+    ascoltoVisualizzaTutto();
+  }
+
 }
 
 
 function ascoltoVisualizzaTutto() {
-    document.querySelector('#visualizzaTuttoPiccole').addEventListener('click', (e) => {
-      e.preventDefault();
-      grepAlbumPiccolini(2);  
-    })
+  document.querySelector('#visualizzaTuttoPiccole').addEventListener('click', (e) => {
+    e.preventDefault();
+    grepAlbumPiccolini(2);
+  })
 }
 
 
@@ -163,12 +163,12 @@ function ascoltoNomeUtente() {
     let segno = document.querySelector('#nomeUtente button i')
     console.log(segno.classList.value);
 
-    if(segno.classList.value == "bi bi-plus"){
+    if (segno.classList.value == "bi bi-plus") {
       colonnaDestra.classList.remove('d-none')
       segno.classList = 'bi bi-dash-lg';
-    } else if(segno.classList.value == "bi bi-dash-lg") {
+    } else if (segno.classList.value == "bi bi-dash-lg") {
       colonnaDestra.classList.add('d-none')
-      segno.classList = 'bi bi-plus'; 
+      segno.classList = 'bi bi-plus';
     }
   })
 
@@ -183,7 +183,7 @@ function ascoltoNomeUtente() {
       let segno = document.querySelector('#nomeUtente button i');
     }
     colonnaDestra.classList.add('d-none')
-    segno.classList = 'bi bi-plus';  
+    segno.classList = 'bi bi-plus';
 
   })
 
@@ -193,20 +193,20 @@ function ascoltoNomeUtente() {
 function ascoltoCambioAlbumGrande() {
   document.querySelector('#freccieCambioAlbumGrande').addEventListener('click', (e) => {
     e.preventDefault();
-    if(e.target.classList.value === 'bi bi-chevron-left'){
+    if (e.target.classList.value === 'bi bi-chevron-left') {
       let actualIndex = +localStorage.getItem('indexNumberAlbum')
       console.log(actualIndex);
-      if(actualIndex === 0){
+      if (actualIndex === 0) {
         actualIndex = 3
       } else {
         actualIndex--
       }
       grepAlbumPrincipale(actualIndex)
     }
-    if(e.target.classList.value === 'bi bi-chevron-right'){
+    if (e.target.classList.value === 'bi bi-chevron-right') {
       let actualIndex = +localStorage.getItem('indexNumberAlbum')
       console.log(actualIndex);
-      if(actualIndex === 3){
+      if (actualIndex === 3) {
         actualIndex = 0
       } else {
         actualIndex++
