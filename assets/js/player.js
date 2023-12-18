@@ -14,7 +14,30 @@ function playAudio() {
   }
 } 
 
+const fac = new FastAverageColor();
+let mediaRisultato = null;
+async function prendiMedia(immagineInput) {
+    await fac.getColorAsync(immagineInput)
+        .then(color => {
+            if (isColorLight(color)) {
+                // Imposta un colore di default se il colore è troppo chiaro
+                mediaRisultato = 'rgba(108,105,103,1)';
+                console.log("scelto default");
+            } else {
+                mediaRisultato = immagineInput.style.backgroundColor = color.rgba;
+            }
+        })
+        .catch(e => {
+            console.log(e);
+        });
+    console.log(mediaRisultato);
+}
 
+function isColorLight(color) {
+    const luminance = (0.299 * color.value[0]) + (0.587 * color.value[1]) + (0.114 * color.value[2]);
+    // Soglia di luminanza, regolabile a seconda delle esigenze
+    return luminance > 186;
+}
 
 
 
@@ -83,12 +106,15 @@ document.querySelector('body').addEventListener('click', (e) => {
     // }
     if(e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
       let idNascostoAlbum = e.target.parentNode.childNodes[3].childNodes[5].innerText;
-      localStorage.setItem('trackNumber', "0");
-      localStorage.setItem('idAlbum', idNascostoAlbum);
-      let playAudio = document.querySelector('#playPause');
-      grepAlbum("albumDinamici");
-      playAudio.classList.value = 'bi bi-play-circle-fill';
-      x.play();
+      if(idNascostoAlbum !== localStorage.getItem('idAlbum')){
+        localStorage.setItem('trackNumber', "0");
+        localStorage.setItem('idAlbum', idNascostoAlbum);
+        // let playAudio = document.querySelector('#playPause');
+        // grepAlbum("albumDinamici");
+        // playAudio.classList.value = 'bi bi-play-circle-fill';
+        // x.play();
+      }
+      chiudiTuttoMettiAlbum()
     }
     // console.log(e.target);
         
@@ -135,7 +161,7 @@ async function grepAlbum(provenienza) {
           console.log(provenienza)
         }
       }
-      playAudio()
+          playAudio()
 }
 
 function dimmiGianluca() {
@@ -279,4 +305,189 @@ function vaiAllaProssimaTraccia() {
 
   grepAlbum('skip');
   playAudio();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  // chiudiTuttoMettiAlbum()
+})
+
+
+
+async function chiudiTuttoMettiAlbum() {
+  let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${localStorage.getItem('idAlbum')}`
+  let oggettoJson = null;
+  await fetch(Url, {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/json",
+          "User-Agent": "PostmanRuntime/7.35.0"
+      }
+      }).then(response => response.json())
+      .then(json => oggettoJson = json)
+      .catch(error => console.log(error))
+  
+  // console.log(oggettoJson);
+
+  let tuttiDivCanzoni = document.createElement('div');
+  tuttiDivCanzoni.classList = 'contieneTutteLeCanzoni'
+
+  let canzoniTotali = +oggettoJson.nb_tracks
+  
+  for(i = 0; i < canzoniTotali; i++) {
+    let numsong = i + 1;
+    let divSingolaCanzone = document.createElement('div');
+    divSingolaCanzone.classList = 'row text-light my-2';
+    divSingolaCanzone.innerHTML = `
+          <div class="col-1 text-end align-self-center">${numsong}</div>
+          <div class="col-5 align-self-center">
+              <h5 class="m-0">${oggettoJson.tracks.data[i].title_short}</h5>
+              <p class="m-0">${oggettoJson.tracks.data[i].artist.name}</p>
+          </div>
+          <div class="col-4 text-end">${oggettoJson.tracks.data[i].rank}</div>
+          <div class="col-2 text-end">${durataCanzone(oggettoJson.tracks.data[i].duration)}</div>
+    `
+    tuttiDivCanzoni.appendChild(divSingolaCanzone);
+  }
+
+//  console.log(object); 
+  let classeH1 = null;
+  if(+oggettoJson.title.length > 20) {
+    classeH1 = 'titoloAlbumNewLungo'
+  } else {
+    classeH1 = 'titoloAlbumNew'
+  }
+
+  let immagineFantoccio = document.createElement('img');
+  immagineFantoccio.classList = 'fantoccio d-none';
+  immagineFantoccio.setAttribute('src', oggettoJson.cover_big);
+  immagineFantoccio.setAttribute('crossorigin', 'anonymous');
+  
+  document.querySelector('#annamoBene').appendChild(immagineFantoccio)
+  let fantoccioDaPrendere = document.querySelector('.fantoccio');
+  await prendiMedia(fantoccioDaPrendere);
+  console.log(mediaRisultato);
+
+
+  let corpoHome = document.querySelector('#corpo');
+  corpoHome.classList.add('d-none')
+  let corpoAlbum = document.createElement('div');
+  corpoAlbum.id = 'corpoAlbum'
+  corpoAlbum.classList = 'col overflow-scroll px-0 mx-0'
+  // corpoAlbum.style = `background-color: ${mediaRisultato};`;
+  corpoAlbum.innerHTML = `
+  <!-- Frecce e profilo -->
+  <div class="row d-flex align-items-center m-3">
+      <div class="col" id="freccieCambioAlbumGrande">
+          <i class="bi bi-chevron-left" id="leftAlbum"></i>
+      </div>
+
+      <div id="nomeUtenteAlbum" class="col text-end">
+          <button class="btn btn-secondary p-0 px-2 rounded-5 propicAttivita" type="button">
+              <img src="assets/imgs/main/pamy.png" alt="propic"> <span class="mt-2">Pamela Nerattini
+              <i class="bi bi-plus"></i></span>
+          </button>
+      </div>
+  </div>
+
+  <!-- Banner -->
+  <div id="bannerPrincipaleAlbumAlbum" class="row">
+      <div class="col">
+          <div class="card bg-transparent border-0 text-white mb-3">
+              <div class="row g-0">
+                  <div class="col-md-4 ps-4">
+                      <img src="${oggettoJson.cover_big}"
+                          class="img-fluid rounded-start shadow-lg mb-4" alt="...">
+                  </div>
+                  <div class="col-md-8 d-flex align-items-end">
+                      <div class="card-body p-4 fw-bold">
+                          <span>ALBUM</span>
+                          <h1 class="card-title ${classeH1}">${oggettoJson.title}</h1>
+                          <span id="idNascostoPlayAlbumGrandeNew" class="d-none">${oggettoJson.id}</span>
+                          <div class="albumInfoNew">
+                              <span><img src="${oggettoJson.artist.picture_small}" class="rounded-circle propicArtist" alt="Immagine Artista"></span>
+                              <span class="artistaAlbumNew">${oggettoJson.artist.name}</span>
+                              <span class="annoAlbumNew"> &centerdot; ${oggettoJson.release_date.substring(0, 4)} &centerdot; </span>
+                              <span class="braniAlbumNew">${oggettoJson.nb_tracks} brani,</span>
+                              <span class="durataAlbumNew">${formatDuration(oggettoJson.duration)}</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div class="row corpoAlbumNew">
+      <!-- Row pulsanti -->
+      <div class="row mb-3">
+          <div class="col fs-4 d-flex align-items-center">
+              <a href="#" id="playPauseNew" class="bi bi-play-circle-fill mx-4"></a>
+              <i class="bi bi-suit-heart"></i>
+              <i class="bi bi-arrow-down-circle mx-3"></i>
+              <i class="bi bi-three-dots"></i>
+          </div>
+      </div>
+
+      <div id="albumInfo" class="row text-secondary fw-bold pt-3 mb-3">
+          <div class="col-1 text-end">#</div>
+          <div class="col-5">TITOLO</div>
+          <div class="col-4 text-end">RIPRODUZIONI</div>
+          <div class="col-2 text-end"><i class="bi bi-clock"></i></div>
+      </div>
+
+      <hr id="doveAppendereCanzoni" class="mx-auto">
+  </div>
+  `
+  corpo.parentNode.insertBefore(corpoAlbum, corpo.nextSibling)
+  document.querySelector('#doveAppendereCanzoni').appendChild(tuttiDivCanzoni)
+ 
+  document.querySelector('#nomeUtenteAlbum button').addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log("nome utente");
+    let colonnaDestra = document.querySelector('#activity');
+    let segno = document.querySelector('#nomeUtenteAlbum button i')
+    console.log(segno.classList.value);
+
+    if(segno.classList.value == "bi bi-plus"){
+      colonnaDestra.classList.remove('d-none')
+      segno.classList = 'bi bi-dash-lg';
+    } else if(segno.classList.value == "bi bi-dash-lg") {
+      colonnaDestra.classList.add('d-none')
+      segno.classList = 'bi bi-plus'; 
+    }
+  })
+
+  document.querySelector('#leftAlbum').addEventListener('click', (e) => {
+    // console.log("ciao left album");
+    tornaAllaHomePage()
+  })
+}
+
+
+
+function tornaAllaHomePage() {
+  let albumPage = document.querySelector('#corpoAlbum');
+
+  if (albumPage) {
+    albumPage.remove();
+  }
+  let corpoHome = document.querySelector('#corpo');
+  corpoHome.classList.remove('d-none');
+}
+
+
+function formatDuration(seconds) {
+  const minuti = Math.floor(+seconds / 60);
+  const secondi = +seconds % 60;
+  return `${minuti} min ${secondi} sec.`;
+}
+
+function durataCanzone(seconds) {
+  let minuti = Math.floor(seconds / 60).toString();
+  let secondi = (seconds % 60).toString();
+
+  // minuti = minuti.padStart(2, '0');
+  secondi = secondi.padStart(2, '0');
+
+  return `${minuti}:${secondi}`;
 }

@@ -172,10 +172,16 @@ function ascoltoNomeUtente() {
     }
   })
 
+
   document.querySelector('#croceX').addEventListener('click', (e) => {
-    // let croceX = document.querySelector('#croceX')
+    let croceX = document.querySelector('#croceX')
+    console.log(e.target);
     let colonnaDestra = document.querySelector('#activity');
-    let segno = document.querySelector('#nomeUtente button i')
+    if (document.querySelector('#corpo').classList.contains('d-none')) {
+      let segno = document.querySelector('#nomeUtenteAlbum button i');
+    } else {
+      let segno = document.querySelector('#nomeUtente button i');
+    }
     colonnaDestra.classList.add('d-none')
     segno.classList = 'bi bi-plus';  
 
