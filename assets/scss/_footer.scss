@@ -5,3 +5,32 @@
 .titoloArtist {
     font-size: 6rem;
 }
+
+#artistImg {
+    object-fit: cover;
+
+}
+
+#badgeArtist {
+    background-color: #1DD55F;
+    width: 1.3rem;
+    height: 1.3rem;
+    bottom: -12%;
+    right: 15%;
+
+    i {
+        font-size: 80%;
+    }
+}
+
+.row.mb-3 {
+    button:hover {
+        background-color: transparent;
+        color: white;
+        border-color: white;
+    }
+
+    i:hover {
+        color: white;
+    }
+}
