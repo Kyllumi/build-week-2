@@ -1,49 +1,49 @@
-let x = document.querySelector('#myAudio'); 
+let x = document.querySelector('#myAudio');
 
-function playAudio() { 
+function playAudio() {
   let playAudio = document.querySelector('#playPause')
-  if(playAudio.classList.value === 'bi bi-play-circle-fill'){
-    x.play(); 
+  if (playAudio.classList.value === 'bi bi-play-circle-fill') {
+    x.play();
     playAudio.classList.value = 'bi bi-pause-circle-fill'
     return
   }
-  if(playAudio.classList.value === 'bi bi-pause-circle-fill'){
-    x.pause(); 
+  if (playAudio.classList.value === 'bi bi-pause-circle-fill') {
+    x.pause();
     playAudio.classList.value = 'bi bi-play-circle-fill'
     return
   }
-} 
+}
 
 const fac = new FastAverageColor();
 let mediaRisultato = null;
 async function prendiMedia(immagineInput) {
-    await fac.getColorAsync(immagineInput)
-        .then(color => {
-            if (isColorLight(color)) {
-                // Imposta un colore di default se il colore è troppo chiaro
-                mediaRisultato = 'rgba(108,105,103,1)';
-                console.log("scelto default");
-            } else {
-                mediaRisultato = immagineInput.style.backgroundColor = color.rgba;
-            }
-        })
-        .catch(e => {
-            console.log(e);
-        });
-    console.log(mediaRisultato);
+  await fac.getColorAsync(immagineInput)
+    .then(color => {
+      if (isColorLight(color)) {
+        // Imposta un colore di default se il colore è troppo chiaro
+        mediaRisultato = 'rgba(108,105,103,1)';
+        console.log("scelto default");
+      } else {
+        mediaRisultato = immagineInput.style.backgroundColor = color.rgba;
+      }
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  console.log(mediaRisultato);
 }
 
 function isColorLight(color) {
-    const luminance = (0.299 * color.value[0]) + (0.587 * color.value[1]) + (0.114 * color.value[2]);
-    // Soglia di luminanza, regolabile a seconda delle esigenze
-    return luminance > 186;
+  const luminance = (0.299 * color.value[0]) + (0.587 * color.value[1]) + (0.114 * color.value[2]);
+  // Soglia di luminanza, regolabile a seconda delle esigenze
+  return luminance > 186;
 }
 
 
 
 
 
-if(!localStorage.getItem('trackNumber')){
+if (!localStorage.getItem('trackNumber')) {
   localStorage.setItem('trackNumber', "0")
   localStorage.setItem('idAlbum', "230935602")
   let playAudio = document.querySelector('#playPause')
@@ -60,64 +60,64 @@ if(!localStorage.getItem('trackNumber')){
 
 document.querySelector('body').addEventListener('click', (e) => {
   let idNascostoAlbum = document.querySelector('#idNascostoPlayAlbumGrande').innerText
-    if(e.target.id === 'playButtonAlbumGrande') {
-        // console.log(idNascostoAlbum);
-        localStorage.setItem('trackNumber', "0")
-        localStorage.setItem('idAlbum', idNascostoAlbum)
-        let playAudio = document.querySelector('#playPause')
-        grepAlbum("playButtonAlbumGrande")
-        playAudio.classList.value = 'bi bi-play-circle-fill'
-        x.play();
-        
-    }
-      
-    if(e.target.id === 'vaiAvanti') {
-      let jsonNew = JSON.parse(localStorage.getItem('oggettoString'));
-      let lastTrack = jsonNew.tracks.data.length - 1;
-      if(+localStorage.getItem('trackNumber') >= lastTrack){
-        localStorage.setItem('trackNumber', "0");
-        playAudio()
-        grepAlbum('skip')
-        return
-      }
-      let avanti = +localStorage.getItem('trackNumber') + 1
-      localStorage.setItem('trackNumber', avanti)
+  if (e.target.id === 'playButtonAlbumGrande') {
+    // console.log(idNascostoAlbum);
+    localStorage.setItem('trackNumber', "0")
+    localStorage.setItem('idAlbum', idNascostoAlbum)
+    let playAudio = document.querySelector('#playPause')
+    grepAlbum("playButtonAlbumGrande")
+    playAudio.classList.value = 'bi bi-play-circle-fill'
+    x.play();
+
+  }
+
+  if (e.target.id === 'vaiAvanti') {
+    let jsonNew = JSON.parse(localStorage.getItem('oggettoString'));
+    let lastTrack = jsonNew.tracks.data.length - 1;
+    if (+localStorage.getItem('trackNumber') >= lastTrack) {
+      localStorage.setItem('trackNumber', "0");
       playAudio()
       grepAlbum('skip')
+      return
     }
+    let avanti = +localStorage.getItem('trackNumber') + 1
+    localStorage.setItem('trackNumber', avanti)
+    playAudio()
+    grepAlbum('skip')
+  }
 
-    if(e.target.id === 'vaiIndietro') {
-      let jsonNew = JSON.parse(localStorage.getItem('oggettoString'));
-      let lastTrack = jsonNew.tracks.data.length - 1;
-      if(+localStorage.getItem('trackNumber') == 0){
-        localStorage.setItem('trackNumber', lastTrack);
-        playAudio()
-        grepAlbum('skip')
-        return
-      }
-      let indietro = +localStorage.getItem('trackNumber') - 1
-      localStorage.setItem('trackNumber', indietro)
+  if (e.target.id === 'vaiIndietro') {
+    let jsonNew = JSON.parse(localStorage.getItem('oggettoString'));
+    let lastTrack = jsonNew.tracks.data.length - 1;
+    if (+localStorage.getItem('trackNumber') == 0) {
+      localStorage.setItem('trackNumber', lastTrack);
       playAudio()
       grepAlbum('skip')
+      return
     }
+    let indietro = +localStorage.getItem('trackNumber') - 1
+    localStorage.setItem('trackNumber', indietro)
+    playAudio()
+    grepAlbum('skip')
+  }
 
-    // if(e.target.classList.value === 'card-body generati-01' || e.target.classList.value === 'card-text generati-01' || e.target.classList.value === 'card-title generati-01' || e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
-    //   console.log("weweee");
-    // }
-    if(e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
-      let idNascostoAlbum = e.target.parentNode.childNodes[3].childNodes[5].innerText;
-      if(idNascostoAlbum !== localStorage.getItem('idAlbum')){
-        localStorage.setItem('trackNumber', "0");
-        localStorage.setItem('idAlbum', idNascostoAlbum);
-        // let playAudio = document.querySelector('#playPause');
-        // grepAlbum("albumDinamici");
-        // playAudio.classList.value = 'bi bi-play-circle-fill';
-        // x.play();
-      }
-      chiudiTuttoMettiAlbum()
+  // if(e.target.classList.value === 'card-body generati-01' || e.target.classList.value === 'card-text generati-01' || e.target.classList.value === 'card-title generati-01' || e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
+  //   console.log("weweee");
+  // }
+  if (e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
+    let idNascostoAlbum = e.target.parentNode.childNodes[3].childNodes[5].innerText;
+    if (idNascostoAlbum !== localStorage.getItem('idAlbum')) {
+      localStorage.setItem('trackNumber', "0");
+      localStorage.setItem('idAlbum', idNascostoAlbum);
+      // let playAudio = document.querySelector('#playPause');
+      // grepAlbum("albumDinamici");
+      // playAudio.classList.value = 'bi bi-play-circle-fill';
+      // x.play();
     }
-    // console.log(e.target);
-        
+    chiudiTuttoMettiAlbum()
+  }
+  // console.log(e.target);
+
 })
 
 
@@ -130,54 +130,54 @@ async function grepAlbum(provenienza) {
   let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${localStorage.getItem('idAlbum')}`
   let oggettoJson = null;
   await fetch(Url, {
-      method: 'GET',
-      headers: {
-          "Content-Type": "application/json",
-          "User-Agent": "PostmanRuntime/7.35.0"
-      }
-      }).then(response => response.json())
-      .then(json => oggettoJson = json)
-      .catch(error => console.log(error))
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "User-Agent": "PostmanRuntime/7.35.0"
+    }
+  }).then(response => response.json())
+    .then(json => oggettoJson = json)
+    .catch(error => console.log(error))
 
-      // console.log(oggettoJson);
-      copertinaAlbum.setAttribute("src", oggettoJson.cover_medium)
-      if(oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short.length <= 24){
-        titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short
-      } else {
-        titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short.substring(0, 23) + "..."
-      }
-      artisti.innerText = oggettoJson.artist.name
-      sourceAudio.setAttribute("src", oggettoJson.tracks.data[localStorage.getItem('trackNumber')].preview)
-      let oggettoString = JSON.stringify(oggettoJson)
-      localStorage.setItem('oggettoString', oggettoString)
-      // console.log(oggettoJson);
-      let audio = document.getElementById('myAudio');
-      let tempoSalvato = localStorage.getItem('audioCurrentTime');
-      if (tempoSalvato) {
-        if(provenienza == "playButtonAlbumGrande" || provenienza == "albumDinamici" || provenienza == "skip"){
-          localStorage.setItem('audioCurrentTime', "0");
-        } else {
-          audio.currentTime = parseFloat(tempoSalvato);
-          console.log(provenienza)
-        }
-      }
-          playAudio()
+  // console.log(oggettoJson);
+  copertinaAlbum.setAttribute("src", oggettoJson.cover_medium)
+  if (oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short.length <= 24) {
+    titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short
+  } else {
+    titoloCanzone.innerText = oggettoJson.tracks.data[localStorage.getItem('trackNumber')].title_short.substring(0, 23) + "..."
+  }
+  artisti.innerText = oggettoJson.artist.name
+  sourceAudio.setAttribute("src", oggettoJson.tracks.data[localStorage.getItem('trackNumber')].preview)
+  let oggettoString = JSON.stringify(oggettoJson)
+  localStorage.setItem('oggettoString', oggettoString)
+  // console.log(oggettoJson);
+  let audio = document.getElementById('myAudio');
+  let tempoSalvato = localStorage.getItem('audioCurrentTime');
+  if (tempoSalvato) {
+    if (provenienza == "playButtonAlbumGrande" || provenienza == "albumDinamici" || provenienza == "skip") {
+      localStorage.setItem('audioCurrentTime', "0");
+    } else {
+      audio.currentTime = parseFloat(tempoSalvato);
+      console.log(provenienza)
+    }
+  }
+  playAudio()
 }
 
 function dimmiGianluca() {
 
-    let divPlayer = document.querySelector('#player');
-    let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
-    let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
-    let artisti = document.querySelector('#titoloArtistiPlayer')
-    let sourceAudio = document.querySelector('#myAudio')
-    copertinaAlbum.setAttribute("src", "assets/imgs/main/40.png")
-    titoloCanzone.innerText = "Andiamo a fleXare with Gianluca 40"
-    artisti.innerText = "Gianluca Forty"
-    sourceAudio.setAttribute("src", "assets/audio/dimmi-gianluca.mp3")
-    localStorage.setItem('trackNumber', "0")
-    playAudio()
-  
+  let divPlayer = document.querySelector('#player');
+  let copertinaAlbum = divPlayer.childNodes[1].childNodes[1].childNodes[1].childNodes[1]
+  let titoloCanzone = document.querySelector('#titoloCanzonePlayer')
+  let artisti = document.querySelector('#titoloArtistiPlayer')
+  let sourceAudio = document.querySelector('#myAudio')
+  copertinaAlbum.setAttribute("src", "assets/imgs/main/40.png")
+  titoloCanzone.innerText = "Andiamo a fleXare with Gianluca 40"
+  artisti.innerText = "Gianluca Forty"
+  sourceAudio.setAttribute("src", "assets/audio/dimmi-gianluca.mp3")
+  localStorage.setItem('trackNumber', "0")
+  playAudio()
+
 }
 
 function tribalAcidHouse() {
@@ -224,51 +224,51 @@ function sliderPlayer() {
   let currentEnd = document.getElementById("currentEnd");
   let statusBar = document.querySelector(".slider-progress");
 
-  audio.ontimeupdate = function() {
+  audio.ontimeupdate = function () {
     if (isFinite(audio.duration)) {
-        let percentuale = (audio.currentTime / audio.duration) * 100;
-        statusBar.value = percentuale;
+      let percentuale = (audio.currentTime / audio.duration) * 100;
+      statusBar.value = percentuale;
 
-        currentStart.textContent = convertiSecondiInMinuti(audio.currentTime);
-        currentEnd.textContent = convertiSecondiInMinuti(audio.duration);
+      currentStart.textContent = convertiSecondiInMinuti(audio.currentTime);
+      currentEnd.textContent = convertiSecondiInMinuti(audio.duration);
 
-        // Controllo per passare alla prossima traccia
-        if (percentuale >= 99.9) {
-            vaiAllaProssimaTraccia();
-        }
+      // Controllo per passare alla prossima traccia
+      if (percentuale >= 99.9) {
+        vaiAllaProssimaTraccia();
+      }
     }
-};
+  };
 
   // Funzione per convertire i secondi in formato minuti:secondi
   function convertiSecondiInMinuti(secondi) {
-      let min = Math.floor(secondi / 60);
-      let sec = Math.floor(secondi % 60);
-      return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+    let min = Math.floor(secondi / 60);
+    let sec = Math.floor(secondi % 60);
+    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
   }
 
   // Aggiungi un listener per quando l'utente cambia la posizione della status bar
-  statusBar.addEventListener('input', function() {
-      let durata = audio.duration;
-      let valore = statusBar.value;
-      audio.currentTime = (valore / 100) * durata;
+  statusBar.addEventListener('input', function () {
+    let durata = audio.duration;
+    let valore = statusBar.value;
+    audio.currentTime = (valore / 100) * durata;
   });
 
 }
 
 
 function controlloVolume() {
-  document.addEventListener('DOMContentLoaded', function() {
-  let audio = document.getElementById('myAudio'); 
-  let controlloVolume = document.getElementById('controlloVolume');
+  document.addEventListener('DOMContentLoaded', function () {
+    let audio = document.getElementById('myAudio');
+    let controlloVolume = document.getElementById('controlloVolume');
 
-  audio.volume = controlloVolume.value / 100;
+    audio.volume = controlloVolume.value / 100;
 
-  controlloVolume.addEventListener('input', function() {
+    controlloVolume.addEventListener('input', function () {
       audio.volume = this.value / 100;
+    });
+
+
   });
-
-
-});
 
 }
 
@@ -276,13 +276,13 @@ function salvaTempoCorrenteAudio() {
   let audio = document.getElementById("myAudio");
 
   setInterval(() => {
-      if (!audio.paused) {
-          localStorage.setItem('audioCurrentTime', audio.currentTime);
-      }
+    if (!audio.paused) {
+      localStorage.setItem('audioCurrentTime', audio.currentTime);
+    }
   }, 300);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   salvaTempoCorrenteAudio();
   let audio = document.getElementById('myAudio');
   let tempoSalvato = localStorage.getItem('audioCurrentTime');
@@ -298,16 +298,16 @@ function vaiAllaProssimaTraccia() {
   let lastTrack = jsonNew.tracks.data.length - 1;
 
   if (trackNumber < lastTrack) {
-      localStorage.setItem('trackNumber', trackNumber + 1);
+    localStorage.setItem('trackNumber', trackNumber + 1);
   } else {
-      localStorage.setItem('trackNumber', "0"); // Ritorna alla prima traccia o gestisci come preferisci
+    localStorage.setItem('trackNumber', "0"); // Ritorna alla prima traccia o gestisci come preferisci
   }
 
   grepAlbum('skip');
   playAudio();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // chiudiTuttoMettiAlbum()
 })
 
@@ -317,23 +317,25 @@ async function chiudiTuttoMettiAlbum() {
   let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${localStorage.getItem('idAlbum')}`
   let oggettoJson = null;
   await fetch(Url, {
-      method: 'GET',
-      headers: {
-          "Content-Type": "application/json",
-          "User-Agent": "PostmanRuntime/7.35.0"
-      }
-      }).then(response => response.json())
-      .then(json => oggettoJson = json)
-      .catch(error => console.log(error))
-  
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "User-Agent": "PostmanRuntime/7.35.0"
+    }
+  }).then(response => response.json())
+    .then(json => oggettoJson = json)
+    .catch(error => console.log(error))
+
   // console.log(oggettoJson);
 
   let tuttiDivCanzoni = document.createElement('div');
   tuttiDivCanzoni.classList = 'contieneTutteLeCanzoni'
+  tuttiDivCanzoni.style = 'padding-bottom: 7rem; margin-right: 1.5rem;'
+
 
   let canzoniTotali = +oggettoJson.nb_tracks
-  
-  for(i = 0; i < canzoniTotali; i++) {
+
+  for (i = 0; i < canzoniTotali; i++) {
     let numsong = i + 1;
     let divSingolaCanzone = document.createElement('div');
     divSingolaCanzone.classList = 'row text-light my-2';
@@ -349,9 +351,9 @@ async function chiudiTuttoMettiAlbum() {
     tuttiDivCanzoni.appendChild(divSingolaCanzone);
   }
 
-//  console.log(object); 
+  //  console.log(object); 
   let classeH1 = null;
-  if(+oggettoJson.title.length > 20) {
+  if (+oggettoJson.title.length > 20) {
     classeH1 = 'titoloAlbumNewLungo'
   } else {
     classeH1 = 'titoloAlbumNew'
@@ -361,7 +363,7 @@ async function chiudiTuttoMettiAlbum() {
   immagineFantoccio.classList = 'fantoccio d-none';
   immagineFantoccio.setAttribute('src', oggettoJson.cover_big);
   immagineFantoccio.setAttribute('crossorigin', 'anonymous');
-  
+
   document.querySelector('#annamoBene').appendChild(immagineFantoccio)
   let fantoccioDaPrendere = document.querySelector('.fantoccio');
   await prendiMedia(fantoccioDaPrendere);
@@ -435,12 +437,13 @@ async function chiudiTuttoMettiAlbum() {
           <div class="col-2 text-end"><i class="bi bi-clock"></i></div>
       </div>
 
-      <hr id="doveAppendereCanzoni" class="mx-auto">
-  </div>
+      <hr class="mx-auto"></hr>
+      <div id="doveAppendereCanzoni">
+      </div>
   `
   corpo.parentNode.insertBefore(corpoAlbum, corpo.nextSibling)
   document.querySelector('#doveAppendereCanzoni').appendChild(tuttiDivCanzoni)
- 
+
   document.querySelector('#nomeUtenteAlbum button').addEventListener('click', (e) => {
     e.preventDefault();
     console.log("nome utente");
@@ -448,12 +451,12 @@ async function chiudiTuttoMettiAlbum() {
     let segno = document.querySelector('#nomeUtenteAlbum button i')
     console.log(segno.classList.value);
 
-    if(segno.classList.value == "bi bi-plus"){
+    if (segno.classList.value == "bi bi-plus") {
       colonnaDestra.classList.remove('d-none')
       segno.classList = 'bi bi-dash-lg';
-    } else if(segno.classList.value == "bi bi-dash-lg") {
+    } else if (segno.classList.value == "bi bi-dash-lg") {
       colonnaDestra.classList.add('d-none')
-      segno.classList = 'bi bi-plus'; 
+      segno.classList = 'bi bi-plus';
     }
   })
 
