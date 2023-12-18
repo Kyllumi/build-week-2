@@ -11855,6 +11855,10 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+.artist {
+  margin-top: 20rem;
+}
+
 #buonaseraCards .row .card {
   background-color: rgb(43, 43, 43);
   color: white;
