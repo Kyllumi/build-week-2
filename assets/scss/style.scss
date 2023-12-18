@@ -306,3 +306,19 @@ hr {
     background-color: #252222;
   }
 }
+
+#buonaseraCards {
+  .row .col-4 .card:hover {
+    background-color: #3b3a3a;
+  }
+}
+
+
+#cardDinamiche {
+  .hoverScale:hover {
+    background-color: #3b3a3a;
+    transform: scale(1.02);
+  }
+}
+
+
