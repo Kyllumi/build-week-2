@@ -177,6 +177,14 @@ document.querySelector('body').addEventListener('click', (e) => {
     return
   }
 
+
+    if(e.target.id === 'artistIndex') {
+      let idNascostoArtist = e.target.parentNode.childNodes[9].innerText;
+      console.log(idNascostoArtist)
+      chiudiTuttoMettiArtist(idNascostoArtist, 'homePage');
+    }
+   
+
 })
 
 
@@ -579,10 +587,16 @@ async function chiudiTuttoMettiAlbum() {
 
 
 
-function tornaAllaHomePage() {
-  let albumPage = document.querySelector('#corpoAlbum');
+function tornaAllaHomePage(provenienza) {
+  let albumPage = null;
+  if(provenienza == 'artistPage') {
+    albumPage = document.querySelector('#corpoArtist');
+  } else {
+    albumPage = document.querySelector('#corpoAlbum');
+  }
 
   if (albumPage) {
+    console.log(albumPage);
     albumPage.remove();
   }
   let corpoHome = document.querySelector('#corpo');
@@ -620,3 +634,181 @@ function creaGradiente(coloreSecondario) {
 // let coloreSecondario = 'rgba(204, 177, 73, 1)'; // Colore secondario in formato rgba
 // let gradienteCSS = creaGradiente(coloreSecondario);
 // console.log("gradiente:  " +gradienteCSS);
+
+
+async function chiudiTuttoMettiArtist(argomentoIdArtist, provenienza) {
+
+  let Url = `https://striveschool-api.herokuapp.com/api/deezer/artist/${argomentoIdArtist}`
+  let oggettoJson = null;
+  await fetch(Url, {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/json",
+          "User-Agent": "PostmanRuntime/7.35.0"
+      }
+      }).then(response => response.json())
+      .then(json => oggettoJson = json)
+      .catch(error => console.log(error))
+   
+      let UrlTracklist = `https://striveschool-api.herokuapp.com/api/deezer/artist/${argomentoIdArtist}/top?limit=5`
+      let oggettoJsonTrackList = null;
+      await fetch(UrlTracklist, {
+          method: 'GET',
+          headers: {
+              "Content-Type": "application/json",
+              "User-Agent": "PostmanRuntime/7.35.0"
+          }
+          }).then(response => response.json())
+          .then(json => oggettoJsonTrackList = json)
+          .catch(error => console.log(error))
+
+  console.log("labamba  " + oggettoJsonTrackList.data[1].id);
+  let tutteCanzoniPopolari = document.createElement('div');
+
+  let braniPopolari = 5
+  
+  for(i = 0; i < braniPopolari; i++) {
+    let numsong = i + 1;
+    let divSingolaCanzone = document.createElement('div');
+    divSingolaCanzone.classList = 'row text-light my-2';
+    divSingolaCanzone.innerHTML = `
+
+    <div class="col-1 text-end align-self-center">${numsong}</div>
+     <img id="artistPicSong" src="${oggettoJsonTrackList.data[i].album.cover_small}" alt="pictureArtist">
+     <div class="col-2 align-self-center">
+        <h5 class="m-0">${oggettoJsonTrackList.data[i].title_short}</h5>
+     </div>
+     <div class="col-2 text-end align-self-center mx-5">${oggettoJsonTrackList.data[i].rank}</div>
+     <div class="col-2 text-end align-self-center">${durataCanzone(oggettoJsonTrackList.data[i].duration)}</div>
+    `
+    tutteCanzoniPopolari.appendChild(divSingolaCanzone);
+  }
+    
+//  console.log(object); 
+  let classeH1 = null;
+  if(+oggettoJson.name.length > 20) {
+    classeH1 = 'nameLungoArtist'
+  } else {
+    classeH1 = 'nameCortoArtist'
+  }
+  
+  // Se proveniamo dall'home page mettiamo questo if, poi da album dobbiamo cambiarlo
+  if(provenienza == 'homePage') {
+    let corpoHome = document.querySelector('#corpo');
+    corpoHome.classList.add('d-none')
+  }
+  
+
+  let divArtist = document.createElement('div');
+  divArtist.classList = 'col px-0 mx-0';
+  divArtist.id = 'corpoArtist';
+  
+ 
+  divArtist.innerHTML = `
+  <div id="testaArtist">
+  <!-- Frecce e profilo -->
+  <div class="card text-bg-dark d-flex flex-column">
+      <img id="artistImg"
+          src="${oggettoJson.picture_xl}"
+          class="card-img opacity-50" alt="..." style="height: 30rem;">
+      <div class="card-img-overlay row">
+          <div class="col mx-3" id="freccieCambioAlbumGrande">
+              <i class="bi bi-chevron-left" id="leftAlbum"></i>
+          </div>
+          <div id="nomeUtenteArtist" class="col text-end">
+          <button class="btn btn-secondary p-0 px-2 rounded-5 propicAttivita" type="button">
+              <img src="assets/imgs/main/pamy.png" alt="propic"> <span class="mt-2">Pamela Bianchettini
+              <i class="bi bi-plus"></i></span>
+          </button>
+      </div>
+          <div class="row mt-auto">
+              <div class="col">
+                  <span class="card-text"><i class="bi bi-patch-check-fill text-primary"></i>
+                      Artista
+                      verificato</span>
+                  <h1 class="card-text titoloArtist fw-bold mb-4">${oggettoJson.name}</h1>
+                  <p class="card-text">
+                      ${oggettoJson.nb_fan} fan totali
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row corpoAlbumArtist">
+      <!-- Row pulsanti -->
+      <div class="row mb-3">
+          <div class="col text-secondary fs-5 d-flex align-items-center">
+              <a href="#" id="playPauseNewArtist" class="bi bi-play-circle-fill mx-4"></a>
+              <button type="button" class="btn btn-outline-light">FOLLOWING</button>
+              <i class="bi bi-three-dots mx-4"></i>
+          </div>
+      </div>
+
+      <div class="col text-white mx-4">
+          
+          <h3 class="fw-bold mb-4">Top Five brani popolari</h3>
+          <div id="topFivePD"></div>
+          
+
+      </div>
+      
+      <div class="col-4 text-white">
+          <h3 class="fw-bold">Brani che ti piacciono</h3>
+          <div class="row mt-4">
+              <div class="col-3 position-relative">
+                  <img src="${oggettoJson.picture_medium}" class="rounded-circle"
+                      style="width: 5rem;">
+                  <span id="badgeArtist"
+                      class="position-absolute translate-middle rounded-circle d-flex justify-content-center align-items-center">
+                      <i class="bi bi-suit-heart-fill"></i>
+                  </span>
+              </div>
+              <div class="col-9 align-self-center">
+                  <h5 class="text-light">Hai messo mi piace a 11 brani</h5>
+                  <p class="text-secondary m-0">${oggettoJson.name}</p>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+  
+  `
+
+
+
+  
+  
+  corpo.parentNode.insertBefore(divArtist, corpo.nextSibling)
+  document.querySelector('#topFivePD').appendChild(tutteCanzoniPopolari)
+ 
+
+  document.querySelector('#nomeUtenteArtist button').addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log("nome utente");
+    let colonnaDestra = document.querySelector('#activity');
+    let segno = document.querySelector('#nomeUtenteArtist button i')
+    console.log(segno.classList.value);
+
+    if(segno.classList.value == "bi bi-plus"){
+      colonnaDestra.classList.remove('d-none')
+      segno.classList = 'bi bi-dash-lg';
+    } else if(segno.classList.value == "bi bi-dash-lg") {
+      colonnaDestra.classList.add('d-none')
+      segno.classList = 'bi bi-plus'; 
+    }
+  })
+
+  document.querySelector('#leftAlbum').addEventListener('click', (e) => {
+    // console.log("ciao left album");
+    tornaAllaHomePage('artistPage')
+    return
+  })
+
+  document.querySelector('#playPauseNewArtist').addEventListener('click', (e) => {
+
+    playAudioAlbum()
+  })
+
+
+
+}

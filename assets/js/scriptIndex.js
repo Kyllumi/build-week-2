@@ -89,10 +89,10 @@ async function grepAlbumPrincipale(indexPrescelto) {
               <div class="card-body p-4">
                   <span>ALBUM</span>
                   <h1 class="card-title">${oggettoJson.title}</h1>
-                  <p class="card-text">
+                  <p id="artistIndex" class="card-text">
                       ${oggettoJson.contributors[0].name}
                   </p>
-                  <span id="idNascostoPlayAlbumGrande" class="d-none">${oggettoJson.id}</span>
+                  <span id="idNascostoPlayAlbumGrande" class="d-none">${oggettoJson.id}</span> <span id="idNascostoArtista" class="d-none">${oggettoJson.artist.id}</span>
                   <span id="randomIndexAlbumGrande" class="d-none">${randomIndex}</span>
                   <p class="card-text">Ascolta un album Italiano</p>
                   <div class="bottoniAlbumPrincipale mt-5">
