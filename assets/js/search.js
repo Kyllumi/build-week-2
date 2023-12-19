@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         let rgb3 = Math.floor(Math.random() * 255);
         let col = ` 
         <div class="col my-2">
-        <div class="card h-100" style="background-color: rgb(${rgb1}, ${rgb2}, ${rgb3});">
+        <div class="card h-100" style="background-color: rgb(${rgb1}, ${rgb2}, ${rgb3});" role="button">
             <div class="card-body">
                 <h4 class="card-title fw-bold text-white">${element}</h4>
                 <img src="assets/imgs/search/image-${countImg++}.jpg" class="card-img-top" alt="search1">
