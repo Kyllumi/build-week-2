@@ -459,7 +459,7 @@ async function chiudiTuttoMettiAlbum() {
 
       <div id="nomeUtenteAlbum" class="col text-end">
           <button class="btn btn-secondary p-0 px-2 rounded-5 propicAttivita" type="button">
-              <img src="assets/imgs/main/pamy.png" alt="propic"> <span class="mt-2">Pamela Nerattini
+              <img src="assets/imgs/main/pamy.png" alt="propic"> <span class="mt-2">Pamela Bianchettini
               <i class="bi bi-plus"></i></span>
           </button>
       </div>
@@ -480,7 +480,7 @@ async function chiudiTuttoMettiAlbum() {
                           <h1 class="card-title ${classeH1}">${oggettoJson.title}</h1>
                           <span id="idNascostoPlayAlbumGrandeNew" class="d-none">${oggettoJson.id}</span>
                           <div class="albumInfoNew">
-                              <span><img crossorigin="anonymous" src="${oggettoJson.artist.picture_small}" class="rounded-circle propicArtist" alt="Immagine Artista"></span>
+                              <span><img src="${oggettoJson.artist.picture_small}" class="rounded-circle propicArtist" alt="Immagine Artista"></span>
                               <span class="artistaAlbumNew">${oggettoJson.artist.name}</span>
                               <span class="annoAlbumNew"> &centerdot; ${oggettoJson.release_date.substring(0, 4)} &centerdot; </span>
                               <span class="braniAlbumNew">${oggettoJson.nb_tracks} brani,</span>
