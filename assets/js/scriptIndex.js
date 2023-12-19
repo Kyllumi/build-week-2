@@ -6,7 +6,18 @@ addEventListener("DOMContentLoaded", (e) => {
   grepAlbumPiccolini(1)
   ascoltoNomeUtente()
   ascoltoCambioAlbumGrande()
+  creazionePreferiti()
 });
+
+async function creazionePreferiti() {
+  if(!localStorage.getItem('albumPreferiti')) {
+    let albumpreferiti = {
+      id: []
+    }
+    let albumJson = JSON.stringify(albumpreferiti)
+    localStorage.setItem('albumPreferiti', albumJson)
+  }
+}
 
 function creazionePlaylistSinistra() {
   let playlistCol = document.querySelector("#playlistCol");
@@ -72,7 +83,7 @@ async function grepAlbumPrincipale(indexPrescelto) {
       <div class="card bg-black text-white mb-3">
       <div class="row g-0">
           <div class="col-md-4">
-              <img src="${oggettoJson.cover_big}" class="img-fluid rounded-start p-4" alt="...">
+              <img crossorigin="anonymous" src="${oggettoJson.cover_big}" class="img-fluid rounded-start p-4" alt="...">
           </div>
           <div class="col-md-8">
               <div class="card-body p-4">
@@ -128,7 +139,7 @@ async function grepAlbumPiccolini(numeroAlbum) {
     cardSingola.classList = 'col-3 mb-4'
     cardSingola.innerHTML = `
             <div class="card h-100 hoverScale" role="button">
-                <img src="${oggettoJson.cover_medium}" class="card-img-top p-4 img-fluid generati-01" alt="${oggettoJson.artist.name}">
+                <img crossorigin="anonymous" src="${oggettoJson.cover_medium}" class="card-img-top p-4 img-fluid generati-01" alt="${oggettoJson.artist.name}">
                 <div class="card-body generati-01">
                     <h5 class="card-title generati-01">${oggettoJson.title}</h5>
                     <p class="card-text generati-01">${generiJoinati}</p>
@@ -177,10 +188,11 @@ function ascoltoNomeUtente() {
     let croceX = document.querySelector('#croceX')
     console.log(e.target);
     let colonnaDestra = document.querySelector('#activity');
+    let segno = null;
     if (document.querySelector('#corpo').classList.contains('d-none')) {
-      let segno = document.querySelector('#nomeUtenteAlbum button i');
+      segno = document.querySelector('#nomeUtenteAlbum button i');
     } else {
-      let segno = document.querySelector('#nomeUtente button i');
+      segno = document.querySelector('#nomeUtente button i');
     }
     colonnaDestra.classList.add('d-none')
     segno.classList = 'bi bi-plus';

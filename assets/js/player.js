@@ -14,8 +14,36 @@ function playAudio() {
   }
 } 
 
+
+function playAudioAlbum() { 
+  let playAudio = document.querySelector('#playPauseNew')
+  if(playAudio.classList.value === 'bi bi-play-circle-fill mx-4'){
+    localStorage.setItem('idAlbum', localStorage.getItem('idAlbumAperto'))
+    localStorage.setItem('trackNumber', "0")
+    localStorage.setItem('audioCurrentTime', "0")
+    let playAudioOld = document.querySelector('#playPause')
+    grepAlbum("albumNew")
+    playAudioOld.classList.value = 'bi bi-play-circle-fill'
+    playAudio.classList = 'bi bi-pause-circle-fill mx-4'
+    x.play();
+
+
+
+    return
+  }
+  if(playAudio.classList.value === 'bi bi-pause-circle-fill mx-4'){
+    x.pause(); 
+    playAudio.classList.value = 'bi bi-play-circle-fill mx-4'
+    return
+  }
+} 
+
 const fac = new FastAverageColor();
 let mediaRisultato = null;
+let coloreSecondario = null;
+let gradienteCSS = null;
+let gradienteCSSNew = null;
+
 async function prendiMedia(immagineInput) {
     await fac.getColorAsync(immagineInput)
         .then(color => {
@@ -24,7 +52,11 @@ async function prendiMedia(immagineInput) {
                 mediaRisultato = 'rgba(108,105,103,1)';
                 console.log("scelto default");
             } else {
-                mediaRisultato = immagineInput.style.backgroundColor = color.rgba;
+                mediaRisultato = color.rgba;
+                coloreSecondario = mediaRisultato;
+                gradienteCSS = creaGradiente(coloreSecondario);
+                gradienteCSSNew = creaGradienteRgba(coloreSecondario)
+                console.log("esghereeeee " + gradienteCSSNew);
             }
         })
         .catch(e => {
@@ -40,6 +72,25 @@ function isColorLight(color) {
 }
 
 
+function creaGradienteRgba(coloreTerziario) {
+  // Colore primario fisso
+  const colorePrimario = 'rgba(18, 18, 18, 1)';
+  const stopPrimario = 19;
+
+  // Colore intermedio
+  const coloreIntermedio = 'rgba(39, 35, 22, 1)';
+  const stopIntermedio = 46;
+
+  // Colore terziario fornito come input, con stop fisso
+  const stopTerziario = 83;
+
+  return `background: linear-gradient(0deg, ${colorePrimario} ${stopPrimario}%, ${coloreIntermedio} ${stopIntermedio}%, ${coloreTerziario} ${stopTerziario}%);`;
+}
+
+// Esempio di utilizzo
+// let coloreTerziario = 'rgba(91, 78, 32, 1)'; // Colore terziario in formato rgba
+// let gradienteCSSNew = creaGradienteRgba(coloreTerziario);
+// console.log(gradienteCSSNew + " maresciaaaaa");
 
 
 
@@ -106,17 +157,25 @@ document.querySelector('body').addEventListener('click', (e) => {
     // }
     if(e.target.classList.value === 'card-img-top p-4 img-fluid generati-01') {
       let idNascostoAlbum = e.target.parentNode.childNodes[3].childNodes[5].innerText;
-      if(idNascostoAlbum !== localStorage.getItem('idAlbum')){
-        localStorage.setItem('trackNumber', "0");
-        localStorage.setItem('idAlbum', idNascostoAlbum);
+      localStorage.setItem('idAlbumAperto', idNascostoAlbum);
+      chiudiTuttoMettiAlbum()
+      return
+      // if(idNascostoAlbum !== localStorage.getItem('idAlbum')){
+        // localStorage.setItem('trackNumber', "0");
         // let playAudio = document.querySelector('#playPause');
         // grepAlbum("albumDinamici");
         // playAudio.classList.value = 'bi bi-play-circle-fill';
         // x.play();
-      }
-      chiudiTuttoMettiAlbum()
+      // }
     }
-    // console.log(e.target);
+
+    if(e.target.classList.value === 'img-fluid rounded-start p-4') {
+      // console.log(e.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[7].innerText);
+      let idNascostoAlbum = e.target.parentNode.parentNode.childNodes[3].childNodes[1].childNodes[7].innerText;
+      localStorage.setItem('idAlbumAperto', idNascostoAlbum);
+      chiudiTuttoMettiAlbum()
+      return
+    }
         
 })
 
@@ -161,7 +220,10 @@ async function grepAlbum(provenienza) {
           console.log(provenienza)
         }
       }
-          playAudio()
+
+      // if(provenienza !== 'albumNew'){
+        playAudio()
+      // }
 }
 
 function dimmiGianluca() {
@@ -307,14 +369,9 @@ function vaiAllaProssimaTraccia() {
   playAudio();
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  // chiudiTuttoMettiAlbum()
-})
-
-
 
 async function chiudiTuttoMettiAlbum() {
-  let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${localStorage.getItem('idAlbum')}`
+  let Url = `https://striveschool-api.herokuapp.com/api/deezer/album/${localStorage.getItem('idAlbumAperto')}`
   let oggettoJson = null;
   await fetch(Url, {
       method: 'GET',
@@ -365,7 +422,8 @@ async function chiudiTuttoMettiAlbum() {
   document.querySelector('#annamoBene').appendChild(immagineFantoccio)
   let fantoccioDaPrendere = document.querySelector('.fantoccio');
   await prendiMedia(fantoccioDaPrendere);
-  console.log(mediaRisultato);
+  console.log(prendiMedia);
+  
 
 
   let corpoHome = document.querySelector('#corpo');
@@ -373,7 +431,24 @@ async function chiudiTuttoMettiAlbum() {
   let corpoAlbum = document.createElement('div');
   corpoAlbum.id = 'corpoAlbum'
   corpoAlbum.classList = 'col overflow-scroll px-0 mx-0'
-  // corpoAlbum.style = `background-color: ${mediaRisultato};`;
+  corpoAlbum.style.cssText = gradienteCSS;
+
+  let cuore = null;
+
+  let preferitiFormatoObj = JSON.parse(localStorage.getItem('albumPreferiti'));
+
+
+  if(preferitiFormatoObj.id.includes(oggettoJson.id.toString())) {
+    console.log("è dentro i preferiti");
+    cuore = 'bi bi-suit-heart-fill'
+  } else {
+    console.log("non è dentro i preferiti");
+    cuore = 'bi bi-suit-heart'
+  }
+
+
+
+  // console.log(gradienteCSS + " yahoo");
   corpoAlbum.innerHTML = `
   <!-- Frecce e profilo -->
   <div class="row d-flex align-items-center m-3">
@@ -395,7 +470,7 @@ async function chiudiTuttoMettiAlbum() {
           <div class="card bg-transparent border-0 text-white mb-3">
               <div class="row g-0">
                   <div class="col-md-4 ps-4">
-                      <img src="${oggettoJson.cover_big}"
+                      <img crossorigin="anonymous" src="${oggettoJson.cover_big}"
                           class="img-fluid rounded-start shadow-lg mb-4" alt="...">
                   </div>
                   <div class="col-md-8 d-flex align-items-end">
@@ -404,7 +479,7 @@ async function chiudiTuttoMettiAlbum() {
                           <h1 class="card-title ${classeH1}">${oggettoJson.title}</h1>
                           <span id="idNascostoPlayAlbumGrandeNew" class="d-none">${oggettoJson.id}</span>
                           <div class="albumInfoNew">
-                              <span><img src="${oggettoJson.artist.picture_small}" class="rounded-circle propicArtist" alt="Immagine Artista"></span>
+                              <span><img crossorigin="anonymous" src="${oggettoJson.artist.picture_small}" class="rounded-circle propicArtist" alt="Immagine Artista"></span>
                               <span class="artistaAlbumNew">${oggettoJson.artist.name}</span>
                               <span class="annoAlbumNew"> &centerdot; ${oggettoJson.release_date.substring(0, 4)} &centerdot; </span>
                               <span class="braniAlbumNew">${oggettoJson.nb_tracks} brani,</span>
@@ -417,12 +492,12 @@ async function chiudiTuttoMettiAlbum() {
       </div>
   </div>
 
-  <div class="row corpoAlbumNew">
+  <div id="corpoBassoConCanzoni" class="row corpoAlbumNew">
       <!-- Row pulsanti -->
       <div class="row mb-3">
           <div class="col fs-4 d-flex align-items-center">
               <a href="#" id="playPauseNew" class="bi bi-play-circle-fill mx-4"></a>
-              <i class="bi bi-suit-heart"></i>
+              <i id='cuoreAlbum' class="${cuore}"></i>
               <i class="bi bi-arrow-down-circle mx-3"></i>
               <i class="bi bi-three-dots"></i>
           </div>
@@ -440,6 +515,12 @@ async function chiudiTuttoMettiAlbum() {
   `
   corpo.parentNode.insertBefore(corpoAlbum, corpo.nextSibling)
   document.querySelector('#doveAppendereCanzoni').appendChild(tuttiDivCanzoni)
+  // let divCanzoniInBasso = document.querySelector('#corpoBassoConCanzoni')
+  // divCanzoniInBasso.style.cssText = gradienteCSSNew;
+  // console.log(gradienteCSSNew + " mulinobianco");
+  if (fantoccioDaPrendere) {
+    fantoccioDaPrendere.remove();
+}
  
   document.querySelector('#nomeUtenteAlbum button').addEventListener('click', (e) => {
     e.preventDefault();
@@ -460,7 +541,37 @@ async function chiudiTuttoMettiAlbum() {
   document.querySelector('#leftAlbum').addEventListener('click', (e) => {
     // console.log("ciao left album");
     tornaAllaHomePage()
+    return
   })
+
+  document.querySelector('#playPauseNew').addEventListener('click', (e) => {
+
+    playAudioAlbum()
+  })
+
+  document.querySelector('#cuoreAlbum').addEventListener('click', (e) => {
+    console.log(e.target.classList.value);
+    if(e.target.classList.value == 'bi bi-suit-heart') {
+      e.target.classList = 'bi bi-suit-heart-fill'
+      let preferitiObj = JSON.parse(localStorage.getItem('albumPreferiti'));
+      let albumDaAggiungere = document.querySelector('#idNascostoPlayAlbumGrandeNew').innerText
+      preferitiObj.id.push(albumDaAggiungere)
+      localStorage.setItem('albumPreferiti', JSON.stringify(preferitiObj))
+      return
+    }
+    if(e.target.classList.value == 'bi bi-suit-heart-fill') {
+      e.target.classList = 'bi bi-suit-heart';
+      
+      let preferitiObj = JSON.parse(localStorage.getItem('albumPreferiti'));
+      let albumDaAggiungere = document.querySelector('#idNascostoPlayAlbumGrandeNew').innerText
+      preferitiObj.id = preferitiObj.id.filter(id => id !== albumDaAggiungere);
+      localStorage.setItem('albumPreferiti', JSON.stringify(preferitiObj)) 
+      return
+
+    }
+  })
+
+
 }
 
 
@@ -473,6 +584,7 @@ function tornaAllaHomePage() {
   }
   let corpoHome = document.querySelector('#corpo');
   corpoHome.classList.remove('d-none');
+  return
 }
 
 
@@ -491,3 +603,17 @@ function durataCanzone(seconds) {
 
   return `${minuti}:${secondi}`;
 }
+
+
+function creaGradiente(coloreSecondario) {
+  const colorePrincipale = 'rgba(91, 78, 32, 1)'; // Colore principale fisso
+  const stopPrincipale = 24;  // Stop fisso per il colore principale
+  const stopSecondario = 83;  // Stop fisso per il colore secondario
+
+  return `background: linear-gradient(0deg, ${colorePrincipale} ${stopPrincipale}%, ${coloreSecondario} ${stopSecondario}%);`;
+}
+
+// Esempio di utilizzo
+// let coloreSecondario = 'rgba(204, 177, 73, 1)'; // Colore secondario in formato rgba
+// let gradienteCSS = creaGradiente(coloreSecondario);
+// console.log("gradiente:  " +gradienteCSS);
