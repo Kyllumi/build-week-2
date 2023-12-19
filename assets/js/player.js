@@ -654,6 +654,7 @@ async function chiudiTuttoMettiArtist(argomentoIdArtist, provenienza) {
   let divArtist = document.createElement('div');
   divArtist.classList = 'col px-0 mx-0';
   divArtist.id = 'corpoArtist';
+  let tutteCanzoniPopolari = document.createElement('div');
 
   let braniPopolari = 5
   
@@ -671,9 +672,9 @@ async function chiudiTuttoMettiArtist(argomentoIdArtist, provenienza) {
      <div class="col-2 text-end align-self-center">${oggettoJsonTrackList.data[i].rank}</div>
      <div class="col-2 text-end align-self-center">${formatDuration(oggettoJsonTrackList.data[i].duration)}</div>
     `
-    divArtist.appendChild(divSingolaCanzone);
+    tutteCanzoniPopolari.appendChild(divSingolaCanzone);
   }
-
+    
 //  console.log(object); 
   let classeH1 = null;
   if(+oggettoJson.title.length > 20) {
