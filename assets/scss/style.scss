@@ -357,13 +357,17 @@ input.form-control {
   .card-body {
     overflow: hidden;
     position: relative;
-    height: 10rem;
+    height: 12rem;
+  
+    h4 {
+      font-size: 1.4rem
+    }
 
     img {
       width: 60%;
-      transform: rotate(30deg);
+      transform: rotate(20deg);
       position: absolute;
-      left: 50%;
+      left: 55%;
       bottom: -10%;
     }
   }
