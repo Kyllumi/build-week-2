@@ -61,7 +61,15 @@ input[type="range"] {
     color: #f93838cf;
 }
 
+#artistIndex {
+    cursor: pointer;
+    &:hover{
+        color: #4CAF50;
 
+    }
+}
 
-
+.row.corpoAlbumArtist {
+  padding-bottom: 8rem;
+}
 
