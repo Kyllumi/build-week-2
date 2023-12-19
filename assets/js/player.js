@@ -176,7 +176,13 @@ document.querySelector('body').addEventListener('click', (e) => {
       chiudiTuttoMettiAlbum()
       return
     }
-        
+
+    if(e.target.id === 'artistIndex') {
+      let idNascostoArtist = e.target.parentNode.childNodes[9].innerText;
+      console.log(idNascostoArtist)
+      chiudiTuttoMettiArtist(idNascostoArtist, 'homePage');
+    }
+    /* console.log(e.target.id) */
 })
 
 
@@ -617,3 +623,221 @@ function creaGradiente(coloreSecondario) {
 // let coloreSecondario = 'rgba(204, 177, 73, 1)'; // Colore secondario in formato rgba
 // let gradienteCSS = creaGradiente(coloreSecondario);
 // console.log("gradiente:  " +gradienteCSS);
+
+
+async function chiudiTuttoMettiArtist(argomentoIdArtist, provenienza) {
+
+  let Url = `https://striveschool-api.herokuapp.com/api/deezer/artist/${argomentoIdArtist}`
+  let oggettoJson = null;
+  await fetch(Url, {
+      method: 'GET',
+      headers: {
+          "Content-Type": "application/json",
+          "User-Agent": "PostmanRuntime/7.35.0"
+      }
+      }).then(response => response.json())
+      .then(json => oggettoJson = json)
+      .catch(error => console.log(error))
+   
+      let UrlTracklist = `https://striveschool-api.herokuapp.com/api/deezer/artist/${argomentoIdArtist}/top?limit=${braniPopolarity}`
+      let oggettoJsonTrackList = null;
+      await fetch(UrlTracklist, {
+          method: 'GET',
+          headers: {
+              "Content-Type": "application/json",
+              "User-Agent": "PostmanRuntime/7.35.0"
+          }
+          }).then(response => response.json())
+          .then(json => oggettoJsonTrackList = json)
+          .catch(error => console.log(error))
+
+  let divArtist = document.createElement('div');
+  divArtist.classList = 'col px-0 mx-0';
+  divArtist.id = 'corpoArtist';
+
+  let braniPopolari = 5
+  
+  for(i = 0; i < braniPopolari; i++) {
+    let numsong = i + 1;
+    let divSingolaCanzone = document.createElement('div');
+    divSingolaCanzone.classList = 'row text-light my-2';
+    divSingolaCanzone.innerHTML = `
+
+    <div class="col-1 text-end align-self-center">${numsong}</div>
+     <img id="artistPicSong" src="${oggettoJsonTrackList.data[i].album.cover_small}" alt="pictureArtist">
+     <div class="col-2 align-self-center">
+        <h5 class="m-0">${oggettoJsonTrackList.data[i].title_short}</h5>
+     </div>
+     <div class="col-2 text-end align-self-center">${oggettoJsonTrackList.data[i].rank}</div>
+     <div class="col-2 text-end align-self-center">${formatDuration(oggettoJsonTrackList.data[i].duration)}</div>
+    `
+    divArtist.appendChild(divSingolaCanzone);
+  }
+
+//  console.log(object); 
+  let classeH1 = null;
+  if(+oggettoJson.title.length > 20) {
+    classeH1 = 'titoloAlbumNewLungo'
+  } else {
+    classeH1 = 'titoloAlbumNew'
+  }
+
+  let immagineFantoccio = document.createElement('img');
+  immagineFantoccio.classList = 'fantoccio d-none';
+  immagineFantoccio.setAttribute('src', oggettoJson.cover_big);
+  immagineFantoccio.setAttribute('crossorigin', 'anonymous');
+  
+  document.querySelector('#annamoBene').appendChild(immagineFantoccio)
+  let fantoccioDaPrendere = document.querySelector('.fantoccio');
+  await prendiMedia(fantoccioDaPrendere);
+  console.log(prendiMedia);
+  
+
+
+  let corpoHome = document.querySelector('#corpo');
+  corpoHome.classList.add('d-none')
+  let corpoAlbum = document.createElement('div');
+  corpoAlbum.id = 'corpoAlbum'
+  corpoAlbum.classList = 'col overflow-scroll px-0 mx-0'
+  corpoAlbum.style.cssText = gradienteCSS;
+
+  let cuore = null;
+
+  let preferitiFormatoObj = JSON.parse(localStorage.getItem('albumPreferiti'));
+
+
+  if(preferitiFormatoObj.id.includes(oggettoJson.id.toString())) {
+    console.log("è dentro i preferiti");
+    cuore = 'bi bi-suit-heart-fill'
+  } else {
+    console.log("non è dentro i preferiti");
+    cuore = 'bi bi-suit-heart'
+  }
+
+
+
+  // console.log(gradienteCSS + " yahoo");
+  corpoAlbum.innerHTML = `
+  <!-- Frecce e profilo -->
+  <div class="row d-flex align-items-center m-3">
+      <div class="col" id="freccieCambioAlbumGrande">
+          <i class="bi bi-chevron-left" id="leftAlbum"></i>
+      </div>
+
+      <div id="nomeUtenteAlbum" class="col text-end">
+          <button class="btn btn-secondary p-0 px-2 rounded-5 propicAttivita" type="button">
+              <img src="assets/imgs/main/pamy.png" alt="propic"> <span class="mt-2">Pamela Nerattini
+              <i class="bi bi-plus"></i></span>
+          </button>
+      </div>
+  </div>
+
+  <!-- Banner -->
+  <div id="bannerPrincipaleAlbumAlbum" class="row">
+      <div class="col">
+          <div class="card bg-transparent border-0 text-white mb-3">
+              <div class="row g-0">
+                  <div class="col-md-4 ps-4">
+                      <img crossorigin="anonymous" src="${oggettoJson.cover_big}"
+                          class="img-fluid rounded-start shadow-lg mb-4" alt="...">
+                  </div>
+                  <div class="col-md-8 d-flex align-items-end">
+                      <div class="card-body p-4 fw-bold">
+                          <span>ALBUM</span>
+                          <h1 class="card-title ${classeH1}">${oggettoJson.title}</h1>
+                          <span id="idNascostoPlayAlbumGrandeNew" class="d-none">${oggettoJson.id}</span>
+                          <div class="albumInfoNew">
+                              <span><img crossorigin="anonymous" src="${oggettoJson.artist.picture_small}" class="rounded-circle propicArtist" alt="Immagine Artista"></span>
+                              <span class="artistaAlbumNew">${oggettoJson.artist.name}</span>
+                              <span class="annoAlbumNew"> &centerdot; ${oggettoJson.release_date.substring(0, 4)} &centerdot; </span>
+                              <span class="braniAlbumNew">${oggettoJson.nb_tracks} brani,</span>
+                              <span class="durataAlbumNew">${formatDuration(oggettoJson.duration)}</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <div id="corpoBassoConCanzoni" class="row corpoAlbumNew">
+      <!-- Row pulsanti -->
+      <div class="row mb-3">
+          <div class="col fs-4 d-flex align-items-center">
+              <a href="#" id="playPauseNew" class="bi bi-play-circle-fill mx-4"></a>
+              <i id='cuoreAlbum' class="${cuore}"></i>
+              <i class="bi bi-arrow-down-circle mx-3"></i>
+              <i class="bi bi-three-dots"></i>
+          </div>
+      </div>
+
+      <div id="albumInfo" class="row text-secondary fw-bold pt-3 mb-3">
+          <div class="col-1 text-end">#</div>
+          <div class="col-5">TITOLO</div>
+          <div class="col-4 text-end">RIPRODUZIONI</div>
+          <div class="col-2 text-end"><i class="bi bi-clock"></i></div>
+      </div>
+
+      <hr id="doveAppendereCanzoni" class="mx-auto">
+  </div>
+  `
+  corpo.parentNode.insertBefore(corpoAlbum, corpo.nextSibling)
+  document.querySelector('#doveAppendereCanzoni').appendChild(tuttiDivCanzoni)
+  // let divCanzoniInBasso = document.querySelector('#corpoBassoConCanzoni')
+  // divCanzoniInBasso.style.cssText = gradienteCSSNew;
+  // console.log(gradienteCSSNew + " mulinobianco");
+  if (fantoccioDaPrendere) {
+    fantoccioDaPrendere.remove();
+}
+ 
+  document.querySelector('#nomeUtenteAlbum button').addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log("nome utente");
+    let colonnaDestra = document.querySelector('#activity');
+    let segno = document.querySelector('#nomeUtenteAlbum button i')
+    console.log(segno.classList.value);
+
+    if(segno.classList.value == "bi bi-plus"){
+      colonnaDestra.classList.remove('d-none')
+      segno.classList = 'bi bi-dash-lg';
+    } else if(segno.classList.value == "bi bi-dash-lg") {
+      colonnaDestra.classList.add('d-none')
+      segno.classList = 'bi bi-plus'; 
+    }
+  })
+
+  document.querySelector('#leftAlbum').addEventListener('click', (e) => {
+    // console.log("ciao left album");
+    tornaAllaHomePage()
+    return
+  })
+
+  document.querySelector('#playPauseNew').addEventListener('click', (e) => {
+
+    playAudioAlbum()
+  })
+
+  document.querySelector('#cuoreAlbum').addEventListener('click', (e) => {
+    console.log(e.target.classList.value);
+    if(e.target.classList.value == 'bi bi-suit-heart') {
+      e.target.classList = 'bi bi-suit-heart-fill'
+      let preferitiObj = JSON.parse(localStorage.getItem('albumPreferiti'));
+      let albumDaAggiungere = document.querySelector('#idNascostoPlayAlbumGrandeNew').innerText
+      preferitiObj.id.push(albumDaAggiungere)
+      localStorage.setItem('albumPreferiti', JSON.stringify(preferitiObj))
+      return
+    }
+    if(e.target.classList.value == 'bi bi-suit-heart-fill') {
+      e.target.classList = 'bi bi-suit-heart';
+      
+      let preferitiObj = JSON.parse(localStorage.getItem('albumPreferiti'));
+      let albumDaAggiungere = document.querySelector('#idNascostoPlayAlbumGrandeNew').innerText
+      preferitiObj.id = preferitiObj.id.filter(id => id !== albumDaAggiungere);
+      localStorage.setItem('albumPreferiti', JSON.stringify(preferitiObj)) 
+      return
+
+    }
+  })
+
+
+}
