@@ -504,7 +504,7 @@ async function chiudiTuttoMettiAlbum() {
           </div>
       </div>
 
-      <div id="albumInfo" class="row text-secondary fw-bold pt-3 mb-3">
+      <div id="albumInfo" class="row fw-bold pt-3 mb-3">
           <div class="col-1 text-end">#</div>
           <div class="col-5">TITOLO</div>
           <div class="col-4 text-end">RIPRODUZIONI</div>
